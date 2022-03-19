@@ -3,12 +3,15 @@ player.dir = "down"
 player.xVector = 1
 player.speed = 200
 player.animSpeed = 0.12
+player.animTimer = 0.5
 player.moving = false
-player.animTimer = 0
 player.health = 4
 player.fireRate = 0.1
 player.fireTimer = 0
 
+-- 0 = alive
+-- 1.5 = dying
+-- 2 = dead 
 player.state = 0
 
 player:setFixedRotation(true)
@@ -29,7 +32,8 @@ player:setLinearVelocity(0,0)
 function player:update(dt)
     local delta = vector(0,0)
     player.fireTimer = player.fireTimer + dt
-    if player.health >= 1 then 
+
+    if player.state == 0 then 
         local px, py = player:getPosition()
         if love.keyboard.isDown("d") then
             delta.x = 1
@@ -75,25 +79,36 @@ function player:update(dt)
         else
             self.moving = true
         end
+
+        self:checkForBorders()
+        self:checkDamage(dt)
+    else
+        player.animTimer = player.animTimer - dt
+        if player.animTimer <= 0 and player.body then
+            player.state = 2
+            player:destroy()
+        end
     end
 
-    self:checkForBorders()
-    self.anim:update(dt)
-    self:checkDamage()
+    if self.state <= 1.5 then
+        self.anim:update(dt)
+    end
 end
 
 function player:draw()
-    local px, py = player:getPosition()
-    if self.moving and self.health > 0 then
-        self.anim:draw(sprites.playerSheet_run, px, py, nil, 2 * player.xVector, 2, 12, 12)
-    elseif not self.moving and self.health > 0 then
-        self.anim:draw(sprites.playerSheet_idle, px, py, nil, 2 * player.xVector, 2, 12, 12)
-    else
-        self.anim:draw(sprites.playerSheet_die, px, py, nil, 2 * player.xVector, 2, 12, 12)
+    if player.body then
+        local px, py = player:getPosition()
+        if self.moving and self.health > 0 then
+            self.anim:draw(sprites.playerSheet_run, px, py, nil, 2 * player.xVector, 2, 12, 12)
+        elseif not self.moving and self.health > 0 then
+            self.anim:draw(sprites.playerSheet_idle, px, py, nil, 2 * player.xVector, 2, 12, 12)
+        else
+            self.anim:draw(sprites.playerSheet_die, px, py, nil, 2 * player.xVector, 2, 12, 12)
+        end
     end
 end
 
-function player:checkDamage()
+function player:checkDamage(dt)
     if player:enter('Zombie') and self.health > 0 then
         local zombie = player:getEnterCollisionData('Zombie')
         self.health = self.health - zombie.collider.damage
@@ -101,7 +116,7 @@ function player:checkDamage()
 
     if self.health <= 0 then
         self.anim = self.animations.die
-        -- self:destroy()
+        self.state = 1.5
     end
 end
 
