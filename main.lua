@@ -8,15 +8,23 @@ end
 function love.update(dt)
     player:update(dt)
     world:update(dt)
+    camera:update(dt)
     updateEnemy(dt)
 end
 
 function love.draw()
+    camera:attach()
+
+    gameMap:draw()
     player:draw()
+    gameMap:drawForeground()
+    world:draw()
+    
     drawEnemies()
     if showWorld then
         world:draw()
     end
+    camera:detach()
 end
 
 function love:keypressed(key)
