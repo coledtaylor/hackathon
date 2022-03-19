@@ -15,7 +15,7 @@ function loadAll()
     world:addCollisionClass('Player')
     world:addCollisionClass('Obstacle')
     world:addCollisionClass('Zombie')
-    world:addCollisionClass('Bullet')
+    world:addCollisionClass('Bullet', {ignores = {'Player'}})
 
     sprites = {}
     sprites.playerSheet_idle = love.graphics.newImage("/assets/Zombie Asset Pack/player/player_idle.png")
@@ -27,16 +27,16 @@ function loadAll()
     sprites.zombieSheet_idle_chungus = love.graphics.newImage("/assets/Zombie Asset Pack/enemies/chonker/chonker_idle.png")
     sprites.zombieSheet_run_chungus = love.graphics.newImage("/assets/Zombie Asset Pack/enemies/chonker/chonker_run.png")
     sprites.zombieSheet_attack_chungus = love.graphics.newImage("/assets/Zombie Asset Pack/enemies/chonker/chonker_attack.png")
+    sprites.famasSheet_idle = love.graphics.newImage("/assets/gun/famas_idle.png")
+    sprites.famasSheet_fireing = love.graphics.newImage("/assets/gun/famas_fireing.png")
 
     require("src/hud")
     require("src/gameMap")
     require("src/player")
     require("src/camera")
     require("src/enemy")
-    sprites.famas_idle = love.graphics.newImage("/assets/gun/famas_idle.png")
-    sprites.famas_fireing = love.graphics.newImage("/assets/gun/famas_fireing.png")
-
     require 'src/player'
     -- require("enemy")
     require 'src/bullet'
+    require("src/famasGun")
 end

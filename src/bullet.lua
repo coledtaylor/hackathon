@@ -11,7 +11,10 @@ function spawnBullet()
 end
 
 function bulletOutOfBounds(bullet)
-    if bullet:getX() > love.graphics.getWidth() or bullet:getX() < 0 or bullet:getY() > love.graphics.getHeight() or bullet:getY() < 0 then
+    if bullet:getX() < player:getX() - (love.graphics.getWidth() / 2) 
+    or bullet:getX() > player:getX() + (love.graphics.getWidth() / 2) 
+    or bullet:getY() < player:getY() - (love.graphics.getHeight() / 2) 
+    or bullet:getY() > player:getY() + (love.graphics.getHeight() / 2) then
         return true
     else
         return false
@@ -30,19 +33,14 @@ function updateBullet(dt)
 end
 
 function bulletMouseAngle(bullet)
-    return math.atan2( bullet:getY() - love.mouse.getY(), bullet:getX() - love.mouse.getX() ) + math.pi
-end
-
-function checkInput()
-    if love.keyboard.isDown("space") then
-        spawnBullet()
-    end
+    mouseX, mouseY = camera:mousePosition()
+    return math.atan2(bullet:getX() - mouseY, bullet:getY() - mouseX) + math.pi
 end
 
 function drawBullet()
     for i=#bulletList, 1, -1 do
         love.graphics.setColor(255, 255, 255)
-        love.graphics.rectangle("fill", bulletList[i]:getX() - (10/ 2), bulletList[i]:getY() - (10 / 2), 10, 5)
+        love.graphics.rectangle("fill", bulletList[i]:getX() - 5, bulletList[i]:getY() - (5 / 2), 10, 5)
     end
 end
 
