@@ -15,6 +15,7 @@ function loadAll()
     world:addCollisionClass('Player')
     world:addCollisionClass('Obstacle')
     world:addCollisionClass('Zombie')
+    world:addCollisionClass('Bullet')
 
     sprites = {}
     sprites.playerSheet_idle = love.graphics.newImage("/assets/Zombie Asset Pack/player/player_idle.png")
@@ -30,4 +31,10 @@ function loadAll()
     require("src/gameMap")
     require("src/camera")
     require("src/enemy")
+    sprites.famas_idle = love.graphics.newImage("/assets/gun/famas_idle.png")
+    sprites.famas_fireing = love.graphics.newImage("/assets/gun/famas_fireing.png")
+
+    require 'src/player'
+    -- require("enemy")
+    require 'src/bullet'
 end

@@ -10,6 +10,7 @@ function love.update(dt)
     world:update(dt)
     camera:update(dt)
     updateEnemy(dt)
+    updateBullet(dt)
 end
 
 function love.draw()
@@ -25,6 +26,8 @@ function love.draw()
         world:draw()
     end
     camera:detach()
+    -- world:draw()
+    drawBullet()
 end
 
 function love:keypressed(key)

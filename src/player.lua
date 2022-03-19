@@ -6,6 +6,8 @@ player.animSpeed = 0.12
 player.moving = false
 player.animTimer = 0
 player.health = 4
+player.fireRate = 0.1
+player.fireTimer = 0
 
 player.state = 0
 
@@ -54,6 +56,14 @@ function player:update(dt)
         self.anim = self.animations.run
         self.dir = "up"
         self:setY(py - self.speed*dt)
+    end
+
+    self.fireTimer = self.fireTimer + dt
+    if love.keyboard.isDown("space") then
+        if self.fireTimer > self.fireRate then
+            self.fireTimer = 0
+            spawnBullet()
+        end
     end
 
     if delta.x == 0 and delta.y == 0 then
