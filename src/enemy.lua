@@ -8,6 +8,8 @@ function spawnZombie()
     enemy.moving = true
     enemy.damage = math.random(1, 2)
     enemy.animTimer = 0.7
+
+    enemy:setFixedRotation(true)
     
     if enemy.damage == 1 then
         enemy.speed = 140
@@ -28,17 +30,17 @@ function spawnZombie()
     --4 = bottom
     local side = math.random(1, 4)
     if side == 1 then
-        enemy:setX(-30)
-        enemy:setY(math.random(0, love.graphics.getHeight())) 
+        enemy:setX(-10)
+        enemy:setY(math.random(10, love.graphics.getHeight() + 10)) 
     elseif side == 2 then
-        enemy:setX(love.graphics.getWidth() + 30) 
-        enemy:setY(math.random(0, love.graphics.getHeight()))
+        enemy:setX(love.graphics.getWidth() + 10) 
+        enemy:setY(math.random(10, love.graphics.getHeight() + 10))
     elseif side == 3 then
-        enemy:setX(math.random(0, love.graphics.getWidth()))
-        enemy:setY(-30)
+        enemy:setX(math.random(10, love.graphics.getWidth() - 10))
+        enemy:setY(-10)
     elseif side == 4 then
-        enemy:setX(math.random(0, love.graphics.getWidth()))
-        enemy:setY(love.graphics.getHeight() + 30)
+        enemy:setX(math.random(10, love.graphics.getWidth() - 10))
+        enemy:setY(love.graphics.getHeight() + 10)
     end
     
     function enemy:checkDamage()
@@ -170,7 +172,7 @@ function getSpawnPositions()
 
     -- Bottom border
     if camera.y > (mapH - limitY) then
-        camera.y = (mapH - limitY)
+        
     end
 
 end

@@ -69,8 +69,8 @@ function player:update(dt)
         end
     end
 
+    self:checkForBorders()
     self.anim:update(dt)
-
     self:checkDamage()
 end
 
@@ -94,5 +94,27 @@ function player:checkDamage()
     if self.health <= 0 then
         self.anim = self.animations.die
         -- self:destroy()
+    end
+end
+
+function player:checkForBorders()
+    local px, py = self:getPosition()
+    local mapW = gameMap.width * gameMap.tilewidth * scale
+    local mapH = gameMap.height * gameMap.tileheight * scale
+
+    if px < 10 then
+        self:setX(10)
+    end
+
+    if px > mapW - 10 then
+        self:setX(mapW - 10)
+    end
+
+    if py < 15 then
+        self:setY(15)
+    end
+
+    if py > mapH - 15 then
+        self:setY(mapH - 15)
     end
 end

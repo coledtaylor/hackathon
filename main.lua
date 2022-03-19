@@ -15,17 +15,16 @@ end
 
 function love.draw()
     camera:attach()
-
-    gameMap:draw()
-    player:draw()
-    drawBullet()
-    drawEnemies()
-    gameMap:drawForeground()
-    drawHUD()
-    if showWorld then
-        world:draw()
-    end
+        gameMap:draw()
+        player:draw()
+        drawBullet()
+        drawEnemies()
+        if showWorld then
+            world:draw()
+        end
+        gameMap:drawForeground()
     camera:detach()
+    drawHUD()
 end
 
 function love:keypressed(key)

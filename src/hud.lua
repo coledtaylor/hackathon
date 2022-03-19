@@ -13,7 +13,7 @@ end
 
 function drawMenu()
     startText = love.graphics.newText(love.graphics.newFont(20), "Press any key to start")
-    love.graphics.draw(startText, love.graphics.getWidth() / 2 - 25, love.graphics.getHeight() / 2)
+    love.graphics.draw(startText, love.graphics.getWidth()/2 - startText:getWidth()/2, love.graphics.getHeight()/2)
     love.graphics.reset()
 end
 
