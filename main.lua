@@ -40,11 +40,18 @@ function love:keypressed(key)
         showWorld = not showWorld
     end
 
-    if key == "w" then
+    if key == "e" then
         spawnZombie()
     end 
 
     if key == "u" then
         state.kills = 100
     end 
+
+    if key == "return" then
+        player.health = 4
+        for i, enemy in pairs(enemies) do
+            deleteEnemy(enemy)
+        end
+    end
 end

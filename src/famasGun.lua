@@ -1,7 +1,7 @@
 -- function spawnFAMAS()
 Gun = {}
 Gun.fireRate = 0.1
-Gun.animSpeed = 0.12
+Gun.animSpeed = 0.5
 Gun.idle_grid = anim8.newGrid(65, 32, sprites.famasSheet_idle:getWidth(), sprites.famasSheet_idle:getHeight())
 Gun.run_grid = anim8.newGrid(65, 32, sprites.famasSheet_fireing:getWidth(), sprites.famasSheet_fireing:getHeight())
 Gun.animations = {}
@@ -24,6 +24,8 @@ function Gun:update()
 end
 
 function Gun:draw()
-    self.anim:draw(sprites.famasSheet_fireing, player:getX() - (65 / 2), player:getY() - (32 / 2), self.rotation, 1, 1, nil, nil)
+    if player.health > 0 then 
+        self.anim:draw(sprites.famasSheet_fireing, player:getX() - (65 / 2), player:getY() - (32 / 2), self.rotation, 1, 1, nil, nil)
+    end
 end
 -- end
