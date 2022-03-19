@@ -10,7 +10,7 @@ player.health = 4
 player.state = 0
 
 player:setFixedRotation(true)
---print()
+
 player.idle_grid = anim8.newGrid(24, 24, sprites.playerSheet_idle:getWidth(), sprites.playerSheet_idle:getHeight())
 player.run_grid = anim8.newGrid(24, 24, sprites.playerSheet_run:getWidth(), sprites.playerSheet_run:getHeight())
 
