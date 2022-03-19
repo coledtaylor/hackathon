@@ -65,8 +65,7 @@ function player:update(dt)
             self:setY(py - self.speed*dt)
         end
 
-        
-        if love.keyboard.isDown("space") then
+        if state.gameStatus == 1 and love.keyboard.isDown("space") then
             if self.fireTimer >= self.fireRate then
                 self.fireTimer = 0
                 spawnBullet()

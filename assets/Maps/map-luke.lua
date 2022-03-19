@@ -37,6 +37,32 @@ return {
       wangsets = {},
       tilecount = 256,
       tiles = {}
+    },
+    {
+      name = "7DRL-Tiles2",
+      firstgid = 257,
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 16,
+      image = "hackathon/assets/Maps/7DRL-Tiles2.png",
+      imagewidth = 256,
+      imageheight = 256,
+      objectalignment = "unspecified",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16,
+        height = 16
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 256,
+      tiles = {}
     }
   },
   layers = {
@@ -686,58 +712,6 @@ return {
           y = 58,
           width = 28.3333,
           height = 13.3333,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 46,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = -4,
-          y = -0.5,
-          width = 4,
-          height = 320.5,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 49,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 320,
-          y = 0,
-          width = 3.5,
-          height = 320.5,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 50,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 0,
-          y = 321,
-          width = 321,
-          height = 3,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 52,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1.5,
-          y = -4,
-          width = 319,
-          height = 3.5,
           rotation = 0,
           visible = true,
           properties = {}

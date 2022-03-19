@@ -7,13 +7,14 @@ end
 
 function love.update(dt)
     player:update(dt)
-    world:update(dt)
     camera:update(dt)
-    updateEnemy(dt)
-    updateHUD(dt)
-    updateBullet(dt)
-    Gun:update(dt)
-    state:update(dt)
+    world:update(dt)
+    if state.gameStatus == 1 then
+        updateEnemy(dt)
+        Gun:update(dt)
+        updateBullet(dt)
+        state:update(dt)
+    end
 end
 
 function love.draw()
@@ -48,10 +49,7 @@ function love:keypressed(key)
         state.kills = 100
     end 
 
-    if key == "return" then
-        player.health = 4
-        for i, enemy in pairs(enemies) do
-            deleteEnemy(enemy)
-        end
+    if state.gameStatus ~= 1 and key == "return" then
+        state.gameStatus = 1
     end
 end

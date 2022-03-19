@@ -7,7 +7,7 @@ state = {
     kills = 0,
     level = 1,
     goal = 10,
-    gameStatus = 1,
+    gameStatus = 0,
 }
 
 maxTime = state.level

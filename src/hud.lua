@@ -13,7 +13,7 @@ function drawHUD()
     elseif state.gameStatus == 1 then
         drawStatsBox()
         drawStatsText()
-    else
+    elseif state.gameStatus == 2 then
         showGameOverText()
     end
 end
@@ -54,26 +54,6 @@ function drawStatsText()
     local levelText = love.graphics.newText(statsFont, "Level: "..state.level)
     love.graphics.draw(levelText, boxX + 20, boxY + 70)
     love.graphics.reset()
-end
-
-function updateHUD(dt)
-    if state.gameStatus == 1 then
-        if love.keyboard.isDown("return") then
-            state.gameStatus = 2
-            drawStatsBox()
-        end
-    elseif state.gameStatus == 2 then
-        drawStatsBox()
-        if player.health <= 0 then
-            state.gameStatus = 3
-            showGameOverText()
-        end
-    elseif state.gameStatus == 3 then
-        if love.keyboard.isDown("return") then
-            state.gameStatus = 2
-            drawStatsBox()
-        end
-    end
 end
 
 function showGameOverText()
