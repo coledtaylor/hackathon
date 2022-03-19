@@ -72,9 +72,16 @@ end
 function updateEnemy(dt)
     local delta = vector(0,0)
 
+    timer = timer - dt
+    if timer <= 0 then
+        spawnZombie()
+        maxTime = 1 * maxTime
+        timer = maxTime
+    end
+
     for i, zombie in ipairs(enemies) do
 
-        if zombie.body and player.body and zombie.state < 3 then 
+        if zombie.body and player.body and zombie.state <= 2 then 
             if math.cos(zombiePlayerAngle(zombie)) < 0 then
                 zombie.xVector = -1
             else
@@ -116,8 +123,10 @@ function updateEnemy(dt)
         if enemies[i].state == 3 then
             enemies[i].animTimer = enemies[i].animTimer - dt
             if enemies[i].animTimer <= 0 then
+                enemies[i].state = 4 
                 enemies[i]:destroy()
                 table.remove(enemies, i)
+                state.kills = state.kills + 1
             end
         end
 

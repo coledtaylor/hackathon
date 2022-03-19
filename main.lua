@@ -13,21 +13,20 @@ function love.update(dt)
     updateHUD(dt)
     updateBullet(dt)
     Gun:update(dt)
+    state:update(dt)
 end
 
 function love.draw()
     camera:attach()
-
-    gameMap:draw()
-    player:draw()
-    drawBullet()
-    Gun:draw()
-    gameMap:drawForeground()
-    
-    drawEnemies()
-    if showWorld then
-        world:draw()
-    end
+        drawMap()
+        player:draw()
+        drawBullet()        
+        Gun:draw()
+        drawEnemies()
+        if showWorld then
+            world:draw()
+        end
+        drawMapForeground()
     camera:detach()
     drawHUD()
 end
@@ -43,7 +42,11 @@ function love:keypressed(key)
 
     if key == "e" then
         spawnZombie()
-    end
+    end 
+
+    if key == "u" then
+        state.kills = 100
+    end 
 
     if key == "return" then
         player.health = 4

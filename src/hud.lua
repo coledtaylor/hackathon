@@ -2,18 +2,15 @@ boxX = 5
 boxY = 5
 statsFont = love.graphics.newFont(18)
 
-zombies = 0
-level = 1
-
-gameState = 1
--- 1 = before start
--- 2 = during game
--- 3 = game over
+-- Game Status:
+-- 0 = Before start
+-- 1 = Game
+-- 2 = Game Over
 
 function drawHUD()
-    if gameState == 1 then
+    if state.gameStatus == 0 then
         drawMenu()
-    elseif gameState == 2 then
+    elseif state.gameStatus == 1 then
         drawStatsBox()
         drawStatsText()
     else
@@ -50,30 +47,30 @@ function drawStatsText()
     local zombie = love.graphics.newImage("icons/zombie_full.png")
     love.graphics.draw(zombie, boxX + 22, boxY + 42, 0, 1.2, 1.2)
     love.graphics.setColor(0, 0, 0, 1)
-    local zombieText = love.graphics.newText(statsFont, zombies)
+    local zombieText = love.graphics.newText(statsFont, state.kills)
     love.graphics.draw(zombieText, boxX + 45, boxY + 42)
 
     -- Level
-    local levelText = love.graphics.newText(statsFont, "Level: "..level)
+    local levelText = love.graphics.newText(statsFont, "Level: "..state.level)
     love.graphics.draw(levelText, boxX + 20, boxY + 70)
     love.graphics.reset()
 end
 
 function updateHUD(dt)
-    if gameState == 1 then
+    if state.gameStatus == 1 then
         if love.keyboard.isDown("return") then
-            gameState = 2
+            state.gameStatus = 2
             drawStatsBox()
         end
-    elseif gameState == 2 then
+    elseif state.gameStatus == 2 then
         drawStatsBox()
         if player.health <= 0 then
-            gameState = 3
+            state.gameStatus = 3
             showGameOverText()
         end
-    elseif gameState == 3 then
+    elseif state.gameStatus == 3 then
         if love.keyboard.isDown("return") then
-            gameState = 2
+            state.gameStatus = 2
             drawStatsBox()
         end
     end

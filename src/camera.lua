@@ -23,7 +23,7 @@ function camera:update()
             camera.x = limitX
         end
 
-        -- Top border
+        -- Top border   
         if camera.y < limitY then
             camera.y = limitY
         end
