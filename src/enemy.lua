@@ -73,7 +73,7 @@ function updateEnemy(dt)
     timer = timer - dt
     if timer <= 0 and #enemies < maxZombies then
         spawnZombie()
-        maxTime = 0.95 * maxTime
+        maxTime = 0.9 * maxTime
         timer = maxTime
     end
 
