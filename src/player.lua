@@ -6,7 +6,6 @@ player.animSpeed = 0.12
 player.moving = false
 player.animTimer = 0
 player.health = 4
-player.weapon = 
 
 player.state = 0
 
