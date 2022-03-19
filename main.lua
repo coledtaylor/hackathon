@@ -11,6 +11,7 @@ end
 function love.draw()
     player:draw()
     world:draw()
+    drawHUD()
 end
 
 function love:keypressed(key)

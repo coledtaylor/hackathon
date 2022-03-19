@@ -14,6 +14,7 @@ function loadAll()
     sprites.playerSheet_idle = love.graphics.newImage("/assets/Zombie Asset Pack/player/player_idle.png")
     sprites.playerSheet_run = love.graphics.newImage("/assets/Zombie Asset Pack/player/player_run.png")
 
+    require("src/hud")
     require("src/player")
     -- require("enemy")
 end
