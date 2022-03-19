@@ -1,4 +1,4 @@
-mapNames = {"map-alexis", "map-luke"}
+mapNames = {"map-alexis", "map-luke", "map-ben"}
 objects = {}
 
 function loadMap()
