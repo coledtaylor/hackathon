@@ -51,7 +51,7 @@ function love:keypressed(key)
         state.kills = 100
     end 
 
-    if key == "return" and state.gameStatus ~= 1 then
+    if key == "return" then
         state.gameStatus = 1
     end
 end

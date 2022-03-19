@@ -5,6 +5,7 @@ function loadAll()
     vector = require("libs/hump/vector")
     anim8 = require("libs/anim8/anim8")
     sti = require("libs/sti/sti")
+    require("libs/show")
     Camera = require ("libs/hump/camera")
     scale = 3
     
