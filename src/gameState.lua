@@ -20,14 +20,11 @@ if maxZombies > 15 then
 end
 
 function state:update()
-    if player.state == 2 then
-        self.gameStatus = 2
-    end
-
     if self.kills >= self.goal then
         self.kills = 0
         self.goal = self.goal + self.level * 5
         self.level = self.level + 1
+        self.gameStatus = 0
         
         for i=#bulletList,1,-1 do
             bulletList[i]:destroy()
