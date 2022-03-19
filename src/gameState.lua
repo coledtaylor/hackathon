@@ -37,5 +37,7 @@ function state:update()
         player.health = 4
 
         loadMap()
+    elseif player.state == 2 then
+        state.gameStatus = 2
     end
 end

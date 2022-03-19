@@ -20,8 +20,10 @@ function Gun:update()
     -- Gun:setRotation(angle)
     -- Gun.rotation = angle
     -- Gun.anim = Gun.animations.run
-    -- Gun.anim:update(dt)    
-    getAngle() 
+    -- Gun.anim:update(dt)   
+    if player.body then 
+        getAngle() 
+    end
 end
 
 function getAngle()

@@ -9,7 +9,7 @@ function love.update(dt)
     player:update(dt)
     camera:update(dt)
     world:update(dt)
-    if state.gameStatus == 1 then
+    if state.gameStatus >= 1 then
         updateEnemy(dt)
         Gun:update(dt)
         updateBullet(dt)
@@ -49,7 +49,7 @@ function love:keypressed(key)
         state.kills = 100
     end 
 
-    if state.gameStatus ~= 1 and key == "return" then
+    if key == "return" and state.gameStatus ~= 1 then
         state.gameStatus = 1
     end
 end

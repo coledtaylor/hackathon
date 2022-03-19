@@ -47,7 +47,7 @@ function drawStatsText()
     local zombie = love.graphics.newImage("icons/zombie_full.png")
     love.graphics.draw(zombie, boxX + 22, boxY + 42, 0, 1.2, 1.2)
     love.graphics.setColor(0, 0, 0, 1)
-    local zombieText = love.graphics.newText(statsFont, state.kills)
+    local zombieText = love.graphics.newText(statsFont, state.kills.."/"..state.goal)
     love.graphics.draw(zombieText, boxX + 45, boxY + 42)
 
     -- Level
