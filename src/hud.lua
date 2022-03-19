@@ -2,7 +2,7 @@ boxX = 5
 boxY = 5
 statsFont = love.graphics.newFont(18)
 
-zombies = 3
+zombies = table.getn(kills)
 level = 1
 
 function drawHUD()
@@ -14,13 +14,12 @@ end
 function drawMenu()
     startText = love.graphics.newText(love.graphics.newFont(20), "Press any key to start")
     love.graphics.draw(startText, love.graphics.getWidth() / 2 - 25, love.graphics.getHeight() / 2)
-    love.graphics.reset()
 end
 
-
 function drawStatsBox()
+    love.graphics.print(camera.x)
     love.graphics.setColor(169, 169, 169, 0.4)
-    local statsBox = love.graphics.rectangle("fill", boxX, boxY, 165, 100, 15, 15)
+    love.graphics.rectangle("fill", camera.x - 395, camera.y - 295, 165, 100, 15, 15)
     love.graphics.reset()
 end
 
@@ -48,4 +47,8 @@ function drawStatsText()
     local levelText = love.graphics.newText(statsFont, "Level: "..level)
     love.graphics.draw(levelText, boxX + 10, boxY + 70)
     love.graphics.reset()
+end
+
+function updateHUD(dt)
+    drawStatsBox()
 end
