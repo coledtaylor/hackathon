@@ -5,20 +5,27 @@ statsFont = love.graphics.newFont(18)
 zombies = 0
 level = 1
 
+gameState = 1
+-- 1 = before start
+-- 2 = during game
+-- 3 = game over
+
 function drawHUD()
-    drawMenu()
-    drawStatsBox()
-    drawStatsText()
+    if gameState == 1 then
+        drawMenu()
+    elseif gameState == 2 then
+        drawStatsBox()
+        drawStatsText()
+    end
 end
 
 function drawMenu()
-    startText = love.graphics.newText(love.graphics.newFont(20), "Press any key to start")
+    startText = love.graphics.newText(love.graphics.newFont(30), "Press 'Enter' key to start")
     love.graphics.draw(startText, love.graphics.getWidth()/2 - startText:getWidth()/2, love.graphics.getHeight()/2)
     love.graphics.reset()
 end
 
 function drawStatsBox()
-    love.graphics.print(camera.x)
     love.graphics.setColor(169, 169, 169, 0.4)
     love.graphics.rectangle("fill", 10, 10, 165, 100, 15, 15)
     love.graphics.reset()
@@ -51,5 +58,24 @@ function drawStatsText()
 end
 
 function updateHUD(dt)
-    drawStatsBox()
+    if gameState == 1 then
+        if love.keyboard.isDown("return") then
+            gameState = 2
+            drawStatsBox()
+        end
+    elseif gameState == 2 then
+        drawStatsBox()
+        if player.health <= 0 then
+            gameState = 3
+            showGameOverText()
+        end
+    elseif gameState == 3 and love.keyboard.isDown("return") then
+        gameState = 1
+        drawStatsBox()
+    end
+end
+
+function showGameOverText()
+    gameOverText = love.graphics.newText(love.graphics.newFont(30), "Game Over!\nPress 'Enter' key to play again or 'Esc' to exit")
+    love.graphics.draw(gameOverText, love.graphics.getWidth()/2 - startText:getWidth()/2, love.graphics.getHeight()/2)
 end
