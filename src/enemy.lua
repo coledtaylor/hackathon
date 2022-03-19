@@ -194,4 +194,5 @@ end
 function deleteEnemy(enemy)
     enemy.dead = true
     enemy:destroy()
+    enemies = {}
 end
