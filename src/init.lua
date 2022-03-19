@@ -27,6 +27,7 @@ function loadAll()
     sprites.zombieSheet_run_chungus = love.graphics.newImage("/assets/Zombie Asset Pack/enemies/chonker/chonker_run.png")
     sprites.zombieSheet_attack_chungus = love.graphics.newImage("/assets/Zombie Asset Pack/enemies/chonker/chonker_attack.png")
 
+    require("src/hud")
     require("src/player")
     require("src/gameMap")
     require("src/camera")

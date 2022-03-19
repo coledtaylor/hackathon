@@ -20,6 +20,7 @@ function love.draw()
     player:draw()
     gameMap:drawForeground()
     world:draw()
+    drawHUD()
     
     drawEnemies()
     if showWorld then
