@@ -2,7 +2,7 @@ boxX = 5
 boxY = 5
 statsFont = love.graphics.newFont(18)
 
-zombies = table.getn(kills)
+zombies = 0
 level = 1
 
 function drawHUD()
