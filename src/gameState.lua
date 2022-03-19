@@ -3,22 +3,12 @@
 -- 1 = Game
 -- 2 = Game Over
 
-if love.filesystem.getInfo("data.lua") then
-    local data = love.filesystem.load("data.lua")
-    data()
-end
-
 state = {
     kills = 0,
     level = 1,
     goal = 10,
     gameStatus = 0,
 }
-
-saveData = {}
-saveData.currentLevel = state.level
-saveData.goal = state.goal
-saveData.kills = state.kills
 
 -- Used to spaws zombies in the enemies folder
 maxTime = state.level
@@ -39,8 +29,6 @@ function state:update()
         self.goal = self.goal + self.level * 5
         self.level = self.level + 1
         self.gameStatus = 0
-
-        love.filesystem.write("data.lua", table.show(saveData, "saveData"))
         
         for i=#bulletList,1,-1 do
             bulletList[i]:destroy()
