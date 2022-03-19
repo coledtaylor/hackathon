@@ -10,6 +10,9 @@ state = {
     gameStatus = 1,
 }
 
+maxTime = state.level
+timer = maxTime
+
 function state:update()
     if state.kills >= state.goal then
         state.kills = 0

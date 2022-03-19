@@ -31,8 +31,10 @@ function loadAll()
     sprites.zombieSheet_die_chungus = love.graphics.newImage("/assets/Zombie Asset Pack/enemies/chonker/chonker_die.png")
     sprites.famasSheet_idle = love.graphics.newImage("/assets/gun/famas_idle.png")
     sprites.famasSheet_fireing = love.graphics.newImage("/assets/gun/famas_fireing.png")
-
+    sprites.famasSheet_bullet = love.graphics.newImage("/assets/gun/bullet.png")
+    
     require("src/gameState")
+    require("src/hud")
     gameMap = require("src/gameMap")
     loadMap()
     require("src/player")
@@ -40,7 +42,6 @@ function loadAll()
     require("src/enemy")
     require 'src/bullet'
     require("src/famasGun")
-    require("src/hud")
     sprites.famas_idle = love.graphics.newImage("/assets/gun/famas_idle.png")
     sprites.famas_fireing = love.graphics.newImage("/assets/gun/famas_fireing.png")
 end

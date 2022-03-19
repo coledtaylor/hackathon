@@ -3,9 +3,13 @@ bulletList = {}
 function spawnBullet()
     Bullet = world:newRectangleCollider(player:getX(), player:getY(), 10, 5, {collision_class = "Bullet"})
     Bullet.speed = 400
+    Bullet.animSpeed = 0.5
     Bullet.playerPosistionSet = false
-    Bullet.angle = bulletMouseAngle(Bullet)
-
+    Bullet.angle = bulletMouseAngle()
+    Bullet.run_grid = anim8.newGrid(42, 14, sprites.famasSheet_bullet:getWidth(), sprites.famasSheet_bullet:getHeight())
+    Bullet.animations = {}
+    Bullet.animations.run = anim8.newAnimation(Bullet.run_grid('1-1', 1), Bullet.animSpeed)
+    Bullet.anim = Bullet.animations.run
     table.insert(bulletList, Bullet)
 end
 
@@ -33,6 +37,7 @@ function updateBullet(dt)
     for i=#bulletList, 1, -1 do
         bulletList[i]:setX(bulletList[i]:getX() + (math.cos( bulletList[i].angle ) * bulletList[i].speed * dt))
         bulletList[i]:setY(bulletList[i]:getY() + (math.sin( bulletList[i].angle ) * bulletList[i].speed * dt))
+        bulletList[i].rotation = bulletList[i].angle
         if bulletList[i]:enter("Zombie") or bulletOutOfBounds(bulletList[i]) or collisionWithAnything(bulletList[i]) then
             bulletList[i]:destroy()
             table.remove(bulletList, i)
@@ -40,15 +45,14 @@ function updateBullet(dt)
     end
 end
 
-function bulletMouseAngle(bullet)
+function bulletMouseAngle()
     mouseX, mouseY = camera:mousePosition()
-    return math.atan2(bullet:getY() - mouseY, bullet:getX() - mouseX) + math.pi
+    return math.atan2((player:getY()) - mouseY, (player:getX()) - mouseX) + math.pi
 end
 
 function drawBullet()
     for i = 1, #bulletList do
-        love.graphics.setColor(255, 255, 255)
-        love.graphics.rectangle("fill", bulletList[i]:getX() - 5, bulletList[i]:getY() - (5 / 2), 10, 5)
+        bulletList[i].anim:draw(sprites.famasSheet_bullet, bulletList[i]:getX(), bulletList[i]:getY(), bulletList[i].rotation, 0.5, 0.5, (65 / 2), (32 / 2))
     end
 end
 
