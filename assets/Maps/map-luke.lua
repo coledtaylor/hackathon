@@ -38,32 +38,6 @@ return {
       tilecount = 256,
       tiles = {}
     },
-    {
-      name = "7DRL-Tiles2",
-      firstgid = 257,
-      tilewidth = 16,
-      tileheight = 16,
-      spacing = 0,
-      margin = 0,
-      columns = 16,
-      image = "hackathon/assets/Maps/7DRL-Tiles2.png",
-      imagewidth = 256,
-      imageheight = 256,
-      objectalignment = "unspecified",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 16,
-        height = 16
-      },
-      properties = {},
-      wangsets = {},
-      tilecount = 256,
-      tiles = {}
-    }
   },
   layers = {
     {
