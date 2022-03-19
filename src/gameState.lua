@@ -10,6 +10,7 @@ state = {
     gameStatus = 0,
 }
 
+-- Used to spaws zombies in the enemies folder
 maxTime = state.level
 timer = maxTime
 maxZombies = state.level * 3
