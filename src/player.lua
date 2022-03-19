@@ -1,4 +1,4 @@
-player = world:newBSGRectangleCollider(190, 256, 30, 50, 3, {collision_class = "Player"})
+player = world:newBSGRectangleCollider(190, 256, 30, 50, 4, {collision_class = "Player"})
 player.dir = "down"
 player.xVector = 1
 player.speed = 200
@@ -64,6 +64,8 @@ function player:update(dt)
     end
 
     self.anim:update(dt)
+
+    self:checkDamage()
 end
 
 function player:draw()
@@ -75,3 +77,9 @@ function player:draw()
     end
 end
 
+function player:checkDamage()
+    if player:enter('Zombie') then
+        local e = player:getEnterCollisionData('Zombie')
+        self.health = self.health - e.collider.damage
+    end
+end
