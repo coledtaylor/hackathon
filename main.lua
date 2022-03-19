@@ -1,7 +1,6 @@
 function love.load()
     require("/src/init")
     loadAll()
-
 end
 
 function love.update(dt)

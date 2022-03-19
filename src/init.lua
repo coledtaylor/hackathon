@@ -16,4 +16,5 @@ function loadAll()
 
     require("src/player")
     -- require("enemy")
+    require("src/map")
 end
