@@ -28,7 +28,7 @@ player:setLinearVelocity(0,0)
 
 function player:update(dt)
     local delta = vector(0,0)
-
+    player.fireTimer = player.fireTimer + dt
     if player.health >= 1 then 
         local px, py = player:getPosition()
         if love.keyboard.isDown("right") then
@@ -59,6 +59,14 @@ function player:update(dt)
             self.anim = self.animations.run
             self.dir = "up"
             self:setY(py - self.speed*dt)
+        end
+
+        
+        if love.keyboard.isDown("space") then
+            if self.fireTimer >= self.fireRate then
+                self.fireTimer = 0
+                spawnBullet()
+            end
         end
 
         if delta.x == 0 and delta.y == 0 then

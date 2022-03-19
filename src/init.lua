@@ -35,7 +35,6 @@ function loadAll()
     require("src/player")
     require("src/camera")
     require("src/enemy")
-    require 'src/player'
     -- require("enemy")
     require 'src/bullet'
     require("src/famasGun")

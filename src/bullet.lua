@@ -38,7 +38,7 @@ function bulletMouseAngle(bullet)
 end
 
 function drawBullet()
-    for i=#bulletList, 1, -1 do
+    for i = 1, #bulletList do
         love.graphics.setColor(255, 255, 255)
         love.graphics.rectangle("fill", bulletList[i]:getX() - 5, bulletList[i]:getY() - (5 / 2), 10, 5)
     end
