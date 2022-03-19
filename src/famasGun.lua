@@ -1,4 +1,5 @@
 -- function spawnFAMAS()
+flip = false
 Gun = {}
 Gun.fireRate = 0.1
 Gun.animSpeed = 0.01
@@ -7,6 +8,8 @@ Gun.run_grid = anim8.newGrid(65, 32, sprites.famasSheet_fireing:getWidth(), spri
 Gun.animations = {}
 Gun.animations.idle = anim8.newAnimation(Gun.idle_grid('1-1', 1), Gun.animSpeed)
 Gun.animations.run = anim8.newAnimation(Gun.run_grid('1-6', 1), Gun.animSpeed)
+Gun.animations.idle_flipped = anim8.newAnimation(Gun.idle_grid('1-1', 1), Gun.animSpeed):flipV()
+Gun.animations.run_flipped = anim8.newAnimation(Gun.run_grid('1-6', 1), Gun.animSpeed):flipV()
 Gun.rotation = updateBullet()
 
 Gun.anim = Gun.animations.run
@@ -22,6 +25,16 @@ function Gun:update()
     -- Gun.anim = Gun.animations.run
     -- Gun.anim:update(dt)    
     getAngle() 
+
+    local degrees = math.deg(Gun.rotation)
+    if degrees > 90 or degrees < -90 then
+        flip = true
+        Gun.anim = Gun.animations.run_flipped
+    else
+        flip = false
+        Gun.anim = Gun.animations.run
+    end
+
 end
 
 function getAngle()

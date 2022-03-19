@@ -70,7 +70,6 @@ function spawnZombie()
 end
 
 function updateEnemy(dt)
- print(#enemies)
     timer = timer - dt
     if timer <= 0 and #enemies < maxZombies then
         spawnZombie()

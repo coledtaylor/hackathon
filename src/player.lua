@@ -23,6 +23,8 @@ player.die_grid = anim8.newGrid(24, 24, sprites.playerSheet_die:getWidth(), spri
 player.animations = {}
 player.animations.idle = anim8.newAnimation(player.idle_grid('1-4', 1), player.animSpeed)
 player.animations.run = anim8.newAnimation(player.run_grid('1-4', 1), player.animSpeed)
+player.animations.idle_flipper = anim8.newAnimation(player.idle_grid('1-4', 1), player.animSpeed):flipH()
+player.animations.run_flipper = anim8.newAnimation(player.run_grid('1-4', 1), player.animSpeed):flipH()
 player.animations.die = anim8.newAnimation(player.die_grid('1-7', 1), player.animSpeed)
 
 player.anim = player.animations.idle
@@ -30,6 +32,20 @@ player.anim = player.animations.idle
 player:setLinearVelocity(0,0)
 
 function player:update(dt)
+    if (flip) then
+        if(self.moving) then
+            self.anim = self.animations.run
+        else
+            self.anim = self.animations.idle
+        end
+    else
+        if(self.moving) then
+            self.anim = self.animations.run_flipper
+        else
+            self.anim = self.animations.idle_flipper
+        end
+    end
+
     local delta = vector(0,0)
     player.fireTimer = player.fireTimer + dt
 
@@ -37,30 +53,21 @@ function player:update(dt)
         local px, py = player:getPosition()
         if love.keyboard.isDown("d") then
             delta.x = 1
-            self.anim = self.animations.run
             self.dir = "right"
-            self.xVector = 1
             self:setX(px + self.speed*dt)
         end
 
         if love.keyboard.isDown("a") then
-            delta.x = -1
-            self.anim = self.animations.run
             self.dir = "left"
-            self.xVector = -1
             self:setX(px - self.speed*dt)
         end
 
         if love.keyboard.isDown("s") then
-            delta.y = 1
-            self.anim = self.animations.run
             self.dir = "down"
             self:setY(py + self.speed*dt)
         end
 
         if love.keyboard.isDown("w") then
-            delta.y = -1
-            self.anim = self.animations.run
             self.dir = "up"
             self:setY(py - self.speed*dt)
         end
@@ -75,7 +82,6 @@ function player:update(dt)
 
         if delta.x == 0 and delta.y == 0 then
             self.moving = false
-            self.anim = self.animations.idle
         else
             self.moving = true
         end
