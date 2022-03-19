@@ -39,17 +39,17 @@ function love:keypressed(key)
         love.event.quit()
     end
 
-    if key == "q" then
-        showWorld = not showWorld
-    end
+    -- if key == "q" then
+    --     showWorld = not showWorld
+    -- end
 
     -- if key == "e" then
     --     spawnZombie()
     -- end 
 
-    if key == "u" then
-        state.kills = 100
-    end 
+    -- if key == "u" then
+    --     state.kills = 100
+    -- end 
 
     if key == "return" then
         if state.gameStatus == 0 then
