@@ -22,6 +22,8 @@ function drawHUD()
 end
 
 function drawMenu()
+    levelText = love.graphics.newText(love.graphics.newFont(40), "Level"..level)
+    love.graphics.draw(levelText, love.graphics.getWidth()/2 - levelText:getWidth()/2, love.graphics.getHeight()/2 - 60)
     startText = love.graphics.newText(love.graphics.newFont(30), "Press 'Enter' key to start")
     love.graphics.draw(startText, love.graphics.getWidth()/2 - startText:getWidth()/2, love.graphics.getHeight()/2)
     love.graphics.reset()
