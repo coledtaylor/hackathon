@@ -9,7 +9,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 8,
-  nextobjectid = 74,
+  nextobjectid = 86,
   properties = {},
   tilesets = {
     {
@@ -37,7 +37,7 @@ return {
       wangsets = {},
       tilecount = 256,
       tiles = {}
-    }
+    },
   },
   layers = {
     {
@@ -155,7 +155,7 @@ return {
         130, 0, 0, 135, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 130, 0, 0, 0, 0, 130, 0, 0, 0, 0,
         130, 0, 0, 135, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         130, 0, 0, 135, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        130, 0, 0, 135, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 135, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         130, 0, 0, 135, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 148, 149, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 164, 165, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -646,32 +646,6 @@ return {
           properties = {}
         },
         {
-          id = 49,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 6.18182,
-          y = 159.455,
-          width = 10.1818,
-          height = 15.2727,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 50,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = -1.27273,
-          y = 159.455,
-          width = 18,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 51,
           name = "",
           type = "",
@@ -706,58 +680,6 @@ return {
           y = 18.1818,
           width = 10,
           height = 12.5455,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 54,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 5.45455,
-          y = 18.1818,
-          width = 9.63636,
-          height = 12,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 56,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = -0.363636,
-          y = 18.9091,
-          width = 6.90909,
-          height = 11.6364,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 57,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 5.09091,
-          y = 30.7273,
-          width = 4.90909,
-          height = 112.909,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 58,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 6,
-          y = 143.636,
-          width = 3.81818,
-          height = 16.3636,
           rotation = 0,
           visible = true,
           properties = {}
@@ -927,6 +849,58 @@ return {
           y = 249.5,
           width = 17,
           height = 15.5,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 82,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 6,
+          y = 17.75,
+          width = 4,
+          height = 109.5,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 83,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 6,
+          y = 142.25,
+          width = 4,
+          height = 32.25,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 84,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 6.25,
+          y = 162.75,
+          width = 19.25,
+          height = 12,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 85,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 8,
+          y = 18.25,
+          width = 8.5,
+          height = 12.5,
           rotation = 0,
           visible = true,
           properties = {}
