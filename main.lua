@@ -41,7 +41,7 @@ function love:keypressed(key)
         showWorld = not showWorld
     end
 
-    if key == "w" then
+    if key == "e" then
         spawnZombie()
     end 
 end
