@@ -11,6 +11,7 @@ function love.update(dt)
     camera:update(dt)
     updateEnemy(dt)
     updateHUD(dt)
+    updateBullet(dt)
 end
 
 function love.draw()
@@ -18,11 +19,10 @@ function love.draw()
 
     gameMap:draw()
     player:draw()
-    gameMap:drawForeground()
-    world:draw()
-    drawHUD()
-    
+    drawBullet()
     drawEnemies()
+    gameMap:drawForeground()
+    drawHUD()
     if showWorld then
         world:draw()
     end
@@ -33,6 +33,7 @@ function love:keypressed(key)
     if key == "escape" then
         love.event.quit()
     end
+
     if key == "q" then
         showWorld = not showWorld
     end

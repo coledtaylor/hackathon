@@ -22,6 +22,10 @@ function spawnZombie()
     -- 2 = idle
     enemy.state = 0
 
+    --1 = left
+    --2 = right
+    --3 = top
+    --4 = bottom
     local side = math.random(1, 4)
     if side == 1 then
         enemy:setX(-30)
@@ -106,27 +110,67 @@ function drawEnemies()
         local px, py = zombie:getPosition()
 
         if zombie.state == 0 and zombie.damage == 1 then
-            zombie.anim:draw(sprites.zombieSheet_run, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
+            zombie.anim:draw(sprites.zombieSheet_run, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
         elseif zombie.state == 2 and zombie.damage == 1 then
-            zombie.anim:draw(sprites.zombieSheet_idle, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
+            zombie.anim:draw(sprites.zombieSheet_idle, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
         elseif  zombie.state == 1 and zombie.damage == 1 then
-            zombie.anim:draw(sprites.zombieSheet_attack, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
+            zombie.anim:draw(sprites.zombieSheet_attack, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
         end
 
         if zombie.state == 0 and zombie.damage == 2 then
-            zombie.anim:draw(sprites.zombieSheet_run_chungus, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
+            zombie.anim:draw(sprites.zombieSheet_run_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
         elseif zombie.state == 2 and zombie.damage == 2 then
-            zombie.anim:draw(sprites.zombieSheet_idle_chungus, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
+            zombie.anim:draw(sprites.zombieSheet_idle_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
         elseif  zombie.state == 1 and zombie.damage == 2 then
-            zombie.anim:draw(sprites.zombieSheet_attack_chungus, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
+            zombie.anim:draw(sprites.zombieSheet_attack_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
         end
     end
 end
 
 function zombiePlayerAngle(enemy)
-    return math.atan2( player:getY() - enemy:getY(), player:getX() - enemy:getX() )
+    return math.atan2(player:getY() - enemy:getY(), player:getX() - enemy:getX())
 end
 
 function distanceBetween(x1, y1, x2, y2)
-    return math.sqrt( (x2 - x1)^2 + (y2 - y1)^2 )
+    return math.sqrt((x2 - x1)^2 + (y2 - y1)^2)
+end
+
+function getSpawnPositions()
+    --1 = left
+    --2 = right
+    --3 = top
+    --4 = bottom
+
+    camera = Camera(player:getPosition())
+
+    local w = love.graphics.getWidth()
+    local h = love.graphics.getHeight()
+
+    local limitX = w/2
+    local limitY = h/2
+
+    -- get width/height of map
+    local mapW = gameMap.width * gameMap.tilewidth * scale
+    local mapH = gameMap.height * gameMap.tileheight * scale
+
+    -- Left border
+    if camera.x < limitX then
+        min = 2
+    end
+
+    -- Top border
+    if camera.y < limitY then
+        max = 4
+    end
+
+    -- Right border
+    if camera.x > (mapW - limitX) then
+        min = 1
+    end
+
+    -- Bottom border
+    if camera.y > (mapH - limitY) then
+        camera.y = (mapH - limitY)
+    end
+
 end
