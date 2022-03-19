@@ -12,18 +12,22 @@ function love.update(dt)
     updateEnemy(dt)
     updateHUD(dt)
     updateBullet(dt)
+    Gun:update(dt)
 end
 
 function love.draw()
     camera:attach()
-        gameMap:draw()
-        player:draw()
-        drawEnemies()
-        if showWorld then
-            world:draw()
-        end
-        gameMap:drawForeground()
-        drawBullet()
+
+    gameMap:draw()
+    player:draw()
+    Gun:draw()
+    drawBullet()
+    gameMap:drawForeground()
+    
+    drawEnemies()
+    if showWorld then
+        world:draw()
+    end
     camera:detach()
     drawHUD()
 end
