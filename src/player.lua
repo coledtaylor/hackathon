@@ -10,7 +10,6 @@ player.health = 4
 player.state = 0
 
 player:setFixedRotation(true)
-player:setType('static')
 
 player.idle_grid = anim8.newGrid(24, 24, sprites.playerSheet_idle:getWidth(), sprites.playerSheet_idle:getHeight())
 player.run_grid = anim8.newGrid(24, 24, sprites.playerSheet_run:getWidth(), sprites.playerSheet_run:getHeight())
@@ -66,7 +65,7 @@ function player:update(dt)
 
     self.anim:update(dt)
 
-    -- self:checkDamage()
+    self:checkDamage()
 end
 
 function player:draw()
@@ -78,8 +77,9 @@ function player:draw()
     end
 end
 
--- function player:checkDamage()
---     if player:enter('Enemy') then
---         local e = player:getEnterCollisionData('Enemy')
---     end
--- end
+function player:checkDamage()
+    if player:enter('Zombie') then
+        local e = player:getEnterCollisionData('Zombie')
+        self.health = self.health - e.collider.damage
+    end
+end

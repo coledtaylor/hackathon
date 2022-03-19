@@ -7,6 +7,7 @@ end
 
 function love.update(dt)
     player:update(dt)
+    world:update(dt)
     updateEnemy(dt)
 end
 
