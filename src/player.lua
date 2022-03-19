@@ -31,7 +31,7 @@ function player:update(dt)
     player.fireTimer = player.fireTimer + dt
     if player.health >= 1 then 
         local px, py = player:getPosition()
-        if love.keyboard.isDown("right") then
+        if love.keyboard.isDown("d") then
             delta.x = 1
             self.anim = self.animations.run
             self.dir = "right"
@@ -39,7 +39,7 @@ function player:update(dt)
             self:setX(px + self.speed*dt)
         end
 
-        if love.keyboard.isDown("left") then
+        if love.keyboard.isDown("a") then
             delta.x = -1
             self.anim = self.animations.run
             self.dir = "left"
@@ -47,14 +47,14 @@ function player:update(dt)
             self:setX(px - self.speed*dt)
         end
 
-        if love.keyboard.isDown("down") then
+        if love.keyboard.isDown("s") then
             delta.y = 1
             self.anim = self.animations.run
             self.dir = "down"
             self:setY(py + self.speed*dt)
         end
 
-        if love.keyboard.isDown("up") then
+        if love.keyboard.isDown("w") then
             delta.y = -1
             self.anim = self.animations.run
             self.dir = "up"
