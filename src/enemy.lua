@@ -2,17 +2,24 @@ enemies = {}
 
 function spawnZombie()
     enemy = world:newBSGRectangleCollider(150, 256, 30, 50, 4, {collision_class = "Zombie"})
-    enemy.speed = 140
     enemy.dead = false
     enemy.animSpeed = 0.12
     enemy.xVector = 1
     enemy.moving = true
     enemy.damage = math.random(1, 2)
-    enemy.animTimer = 0.5
-
+    enemy.animTimer = 0.7
+    
+    if enemy.damage == 1 then
+        enemy.speed = 140
+        enemy.health = 2
+    else
+        enemy.speed = 100
+        enemy.health = 4
+    end
+    
     -- 0 = walking
     -- 1 = attacking
-    -- 3 = idle
+    -- 2 = idle
     enemy.state = 0
 
     local side = math.random(1, 4)
@@ -38,10 +45,18 @@ function spawnZombie()
     enemy.run_grid = anim8.newGrid(32, 32, sprites.zombieSheet_run:getWidth(), sprites.zombieSheet_run:getHeight())
     enemy.attack_grid = anim8.newGrid(32, 32, sprites.zombieSheet_attack:getWidth(), sprites.zombieSheet_attack:getHeight())
 
+    enemy.idle_grid_chungus = anim8.newGrid(32, 32, sprites.zombieSheet_idle_chungus:getWidth(), sprites.zombieSheet_idle:getHeight())
+    enemy.run_grid_chungus = anim8.newGrid(32, 32, sprites.zombieSheet_run_chungus:getWidth(), sprites.zombieSheet_run:getHeight())
+    enemy.attack_grid_chungus = anim8.newGrid(32, 32, sprites.zombieSheet_attack_chungus:getWidth(), sprites.zombieSheet_attack:getHeight())
+
     enemy.animations = {}
     enemy.animations.idle = anim8.newAnimation(enemy.idle_grid('1-2', 1), enemy.animSpeed)
     enemy.animations.run = anim8.newAnimation(enemy.run_grid('1-4', 1), enemy.animSpeed)
     enemy.animations.attack = anim8.newAnimation(enemy.attack_grid('1-4', 1), enemy.animSpeed)
+
+    enemy.animations.idle_chungus = anim8.newAnimation(enemy.idle_grid_chungus('1-2', 1), enemy.animSpeed)
+    enemy.animations.run_chungus = anim8.newAnimation(enemy.run_grid_chungus('1-4', 1), enemy.animSpeed)
+    enemy.animations.attack_chungus = anim8.newAnimation(enemy.attack_grid_chungus('1-4', 1), enemy.animSpeed)
 
     enemy.anim = enemy.animations.run
 
@@ -59,7 +74,7 @@ function updateEnemy(dt)
             zombie.xVector = 1
         end
 
-        if zombie.state == 3 then
+        if zombie.state == 2 then
             zombie.animTimer = zombie.animTimer - dt
         end 
 
@@ -71,16 +86,13 @@ function updateEnemy(dt)
         if distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) < 50 then
             zombie.state = 1
             zombie.anim = zombie.animations.attack
-            zombie.moving = false
         elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.state == 1 then
-            zombie.state = 3
+            zombie.state = 2
             zombie.anim = zombie.animations.idle
-            zombie.moving = false
-        elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.animTimer <= 0 and zombie.state == 3 then
+        elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.animTimer <= 0 and zombie.state == 2 then
             zombie.state = 0
             zombie.anim = zombie.animations.run
-            zombie.moving = true
-            zombie.animTimer = 0.5
+            zombie.animTimer = 0.7
         end
 
         zombie.anim:update(dt)
@@ -90,13 +102,23 @@ end
 
 function drawEnemies()
     for i,zombie in ipairs(enemies) do
+
         local px, py = zombie:getPosition()
-        if zombie.moving then
+
+        if zombie.state == 0 and zombie.damage == 1 then
             zombie.anim:draw(sprites.zombieSheet_run, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
-        elseif not zombie.moving and zombie.state == 3 then
+        elseif zombie.state == 2 and zombie.damage == 1 then
             zombie.anim:draw(sprites.zombieSheet_idle, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
-        else
+        elseif  zombie.state == 1 and zombie.damage == 1 then
             zombie.anim:draw(sprites.zombieSheet_attack, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
+        end
+
+        if zombie.state == 0 and zombie.damage == 2 then
+            zombie.anim:draw(sprites.zombieSheet_run_chungus, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
+        elseif zombie.state == 2 and zombie.damage == 2 then
+            zombie.anim:draw(sprites.zombieSheet_idle_chungus, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
+        elseif  zombie.state == 1 and zombie.damage == 2 then
+            zombie.anim:draw(sprites.zombieSheet_attack_chungus, px, py, nil, 3 * zombie.xVector, 3, 16, 16)
         end
     end
 end
