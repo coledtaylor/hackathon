@@ -10,18 +10,21 @@ function love.update(dt)
     world:update(dt)
     camera:update(dt)
     updateEnemy(dt)
+    updateBullet(dt)
 end
 
 function love.draw()
     camera:attach()
-        gameMap:draw()
-        player:draw()
-        drawEnemies()
-        gameMap:drawForeground()
-        
-        if showWorld then
-            world:draw()
-        end
+
+    gameMap:draw()
+    player:draw()
+    drawBullet()
+    drawEnemies()
+    gameMap:drawForeground()
+    drawHUD()
+    if showWorld then
+        world:draw()
+    end
     camera:detach()
 end
 

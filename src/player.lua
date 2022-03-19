@@ -6,6 +6,8 @@ player.animSpeed = 0.12
 player.moving = false
 player.animTimer = 0
 player.health = 4
+player.fireRate = 0.1
+player.fireTimer = 0
 
 player.state = 0
 
