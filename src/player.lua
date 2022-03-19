@@ -1,4 +1,4 @@
-player = world:newBSGRectangleCollider(190, 256, 30, 50, 3, {collision_class = "Player"})
+player = world:newBSGRectangleCollider(190, 256, 30, 50, 4, {collision_class = "Player"})
 player.dir = "down"
 player.xVector = 1
 player.speed = 200
@@ -10,6 +10,7 @@ player.health = 4
 player.state = 0
 
 player:setFixedRotation(true)
+player:setType('static')
 
 player.idle_grid = anim8.newGrid(24, 24, sprites.playerSheet_idle:getWidth(), sprites.playerSheet_idle:getHeight())
 player.run_grid = anim8.newGrid(24, 24, sprites.playerSheet_run:getWidth(), sprites.playerSheet_run:getHeight())
@@ -64,6 +65,8 @@ function player:update(dt)
     end
 
     self.anim:update(dt)
+
+    -- self:checkDamage()
 end
 
 function player:draw()
@@ -75,3 +78,8 @@ function player:draw()
     end
 end
 
+-- function player:checkDamage()
+--     if player:enter('Enemy') then
+--         local e = player:getEnterCollisionData('Enemy')
+--     end
+-- end

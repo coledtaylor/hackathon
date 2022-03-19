@@ -1,4 +1,6 @@
 function loadAll()
+    math.randomseed(os.time())
+    
     love.graphics.setDefaultFilter("nearest", "nearest")
     vector = require("libs/hump/vector")
     anim8 = require("libs/anim8/anim8")
@@ -9,11 +11,14 @@ function loadAll()
     world:setQueryDebugDrawing(true)
 
     world:addCollisionClass('Player')
+    world:addCollisionClass('Zombie')
 
     sprites = {}
     sprites.playerSheet_idle = love.graphics.newImage("/assets/Zombie Asset Pack/player/player_idle.png")
     sprites.playerSheet_run = love.graphics.newImage("/assets/Zombie Asset Pack/player/player_run.png")
+    sprites.zombieSheet_idle = love.graphics.newImage("/assets/Zombie Asset Pack/enemies/zombie/zombie_idle.png")
+    sprites.zombieSheet_run = love.graphics.newImage("/assets/Zombie Asset Pack/enemies/zombie/zombie_run.png")
 
     require("src/player")
-    -- require("enemy")
+    require("src/enemy")
 end
