@@ -20,8 +20,8 @@ function love.draw()
 
     gameMap:draw()
     player:draw()
-    Gun:draw()
     drawBullet()
+    Gun:draw()
     gameMap:drawForeground()
     
     drawEnemies()
