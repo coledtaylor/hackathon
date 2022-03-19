@@ -1,7 +1,7 @@
 -- function spawnFAMAS()
 Gun = {}
 Gun.fireRate = 0.1
-Gun.animSpeed = 0.12
+Gun.animSpeed = 0.5
 Gun.idle_grid = anim8.newGrid(65, 32, sprites.famasSheet_idle:getWidth(), sprites.famasSheet_idle:getHeight())
 Gun.run_grid = anim8.newGrid(65, 32, sprites.famasSheet_fireing:getWidth(), sprites.famasSheet_fireing:getHeight())
 Gun.animations = {}
