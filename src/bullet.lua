@@ -1,5 +1,5 @@
 bulletList = {}
-
+flip = false
 function spawnBullet()
     Bullet = world:newRectangleCollider(player:getX(), player:getY(), 10, 5, {collision_class = "Bullet"})
     Bullet.speed = 400
@@ -30,7 +30,6 @@ function collisionWithAnything(bullet)
     else
         return false
     end
-
 end
 
 function updateBullet(dt)

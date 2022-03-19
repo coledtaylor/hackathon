@@ -43,9 +43,9 @@ function love:keypressed(key)
     --     showWorld = not showWorld
     -- end
 
-    -- if key == "e" then
-    --     spawnZombie()
-    -- end 
+    if key == "e" then
+        spawnZombie()
+    end 
 
     -- if key == "u" then
     --     state.kills = 100
