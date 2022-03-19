@@ -34,7 +34,7 @@ end
 
 function bulletMouseAngle(bullet)
     mouseX, mouseY = camera:mousePosition()
-    return math.atan2(bullet:getX() - mouseY, bullet:getY() - mouseX) + math.pi
+    return math.atan2(bullet:getY() - mouseY, bullet:getX() - mouseX) + math.pi
 end
 
 function drawBullet()
