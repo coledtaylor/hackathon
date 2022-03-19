@@ -10,7 +10,7 @@ end
 
 function love.draw()
     player:draw()
-    -- world:draw()
+    world:draw()
 end
 
 function love:keypressed(key)
