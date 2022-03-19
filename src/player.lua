@@ -69,6 +69,8 @@ function player:update(dt)
             if self.fireTimer >= self.fireRate then
                 self.fireTimer = 0
                 spawnBullet()
+                sounds.shoot:stop()
+                sounds.shoot:play()
             end
         end
 
@@ -115,6 +117,7 @@ function player:checkDamage(dt)
 
     if self.health <= 0 then
         self.anim = self.animations.die
+        sounds.player_death:play()
         self.state = 1.5
     end
 end

@@ -6,6 +6,24 @@ function loadAll()
     anim8 = require("libs/anim8/anim8")
     sti = require("libs/sti/sti")
     require("libs/show")
+
+    sounds = {}
+    sounds.music = love.audio.newSource("audio/background.mp3", "stream")
+    sounds.shoot = love.audio.newSource("audio/gunshot.mp3", "stream")
+    sounds.attack_zombie = love.audio.newSource("audio/attack.mp3", "static")
+    sounds.idle_zombie = love.audio.newSource("audio/idle.mp3", "static")
+    sounds.zombie_death = love.audio.newSource("audio/zombie_death.mp3", "static")
+    sounds.player_death = love.audio.newSource("audio/player_death.wav", "static")
+    sounds.music:setLooping(true)
+    sounds.music:setVolume(0.1)
+    sounds.shoot:setVolume(0.1)
+    sounds.zombie_death:setVolume(0.1)
+    sounds.attack_zombie:setVolume(0.5)
+    sounds.idle_zombie:setVolume(0.5)
+    sounds.music:play()
+
+    -- sounds.jump:play()
+
     Camera = require ("libs/hump/camera")
     scale = 3
     

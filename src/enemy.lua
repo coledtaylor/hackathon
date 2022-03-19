@@ -98,11 +98,13 @@ function updateEnemy(dt)
             if distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) < 50 then
                 zombie.state = 1
                 zombie.anim = zombie.animations.attack
+                sounds.attack_zombie:play()
                 zombie.moving = false
             elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.state == 1 then
                 zombie.state = 2
                 zombie.anim = zombie.animations.idle
                 zombie.moving = false
+                sounds.idle_zombie:play()
             elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.animTimer <= 0 and zombie.state == 2 then
                 zombie.state = 0
                 zombie.anim = zombie.animations.run
@@ -118,6 +120,7 @@ function updateEnemy(dt)
     for i=#enemies, 1, -1 do
         if enemies[i].state == 3 then
             enemies[i].animTimer = enemies[i].animTimer - dt
+            sounds.zombie_death:play()
             if enemies[i].animTimer <= 0 then
                 enemies[i]:destroy()
                 table.remove(enemies, i)

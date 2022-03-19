@@ -13,15 +13,15 @@ state = {
 -- Used to spaws zombies in the enemies folder
 maxTime = state.level
 timer = maxTime
-maxZombies = state.level * 3
+maxZombies = state.level * 5
 
-if maxZombies > 15 then
-    maxZombies = 15
+if maxZombies > 30 then
+    maxZombies = 30
 end
 
 function state:update()
     if player.state == 2 then
-        state.gameStatus = 2
+        self.gameStatus = 2
     end
 
     if self.kills >= self.goal then
