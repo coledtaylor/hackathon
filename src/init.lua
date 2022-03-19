@@ -30,12 +30,14 @@ function loadAll()
     sprites.famasSheet_idle = love.graphics.newImage("/assets/gun/famas_idle.png")
     sprites.famasSheet_fireing = love.graphics.newImage("/assets/gun/famas_fireing.png")
 
-    require("src/hud")
+    require("src/gameState")
     require("src/gameMap")
     require("src/player")
     require("src/camera")
     require("src/enemy")
-    -- require("enemy")
     require 'src/bullet'
     require("src/famasGun")
+    require("src/hud")
+    sprites.famas_idle = love.graphics.newImage("/assets/gun/famas_idle.png")
+    sprites.famas_fireing = love.graphics.newImage("/assets/gun/famas_fireing.png")
 end

@@ -1,5 +1,5 @@
-mapName = "map-luke"
-gameMap = sti("/assets/maps/" .. mapName .. ".lua")
+mapNames = {"map-alexis", "map-luke"}
+gameMap = sti("/assets/maps/" .. mapNames[math.random(#mapNames)] .. ".lua")
 
 -- collisions for objects
 for i, obj in pairs(gameMap.layers["Objects"].objects) do

@@ -2,9 +2,6 @@ boxX = 5
 boxY = 5
 statsFont = love.graphics.newFont(18)
 
-zombies = 0
-level = 1
-
 function drawHUD()
     drawMenu()
     drawStatsBox()
@@ -41,11 +38,11 @@ function drawStatsText()
     local zombie = love.graphics.newImage("icons/zombie.png")
     love.graphics.draw(zombie, boxX + 10, boxY + 40, 0, 0.04, 0.04)
     love.graphics.setColor(0, 0, 0, 1)
-    local zombieText = love.graphics.newText(statsFont, zombies)
+    local zombieText = love.graphics.newText(statsFont, state.kills)
     love.graphics.draw(zombieText, boxX + 45, boxY + 40)
 
     -- Level
-    local levelText = love.graphics.newText(statsFont, "Level: "..level)
+    local levelText = love.graphics.newText(statsFont, "Level: "..state.level)
     love.graphics.draw(levelText, boxX + 10, boxY + 70)
     love.graphics.reset()
 end

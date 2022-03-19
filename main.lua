@@ -17,17 +17,15 @@ end
 
 function love.draw()
     camera:attach()
-
-    gameMap:draw()
-    player:draw()
-    Gun:draw()
-    drawBullet()
-    gameMap:drawForeground()
-    
-    drawEnemies()
-    if showWorld then
-        world:draw()
-    end
+        gameMap:draw()
+        player:draw()
+        Gun:draw()
+        drawBullet()
+        drawEnemies()
+        if showWorld then
+            world:draw()
+        end
+        gameMap:drawForeground()
     camera:detach()
     drawHUD()
 end
@@ -43,5 +41,10 @@ function love:keypressed(key)
 
     if key == "w" then
         spawnZombie()
+    end 
+
+    if key == "u" then
+        state.kills = 100
+        state:update()
     end 
 end
