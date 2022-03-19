@@ -13,11 +13,12 @@ function love.update(dt)
     updateHUD(dt)
     updateBullet(dt)
     Gun:update(dt)
+    state:update(dt)
 end
 
 function love.draw()
     camera:attach()
-        gameMap:draw()
+        drawMap()
         player:draw()
         Gun:draw()
         drawBullet()
@@ -25,7 +26,7 @@ function love.draw()
         if showWorld then
             world:draw()
         end
-        gameMap:drawForeground()
+        drawMapForeground()
     camera:detach()
     drawHUD()
 end
@@ -45,6 +46,5 @@ function love:keypressed(key)
 
     if key == "u" then
         state.kills = 100
-        state:update()
     end 
 end

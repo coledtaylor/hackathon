@@ -1,19 +1,33 @@
 mapNames = {"map-alexis", "map-luke"}
-gameMap = sti("/assets/maps/" .. mapNames[math.random(#mapNames)] .. ".lua")
+objects = {}
 
--- collisions for objects
-for i, obj in pairs(gameMap.layers["Objects"].objects) do
-    collider = world:newBSGRectangleCollider(scale*obj.x, scale*obj.y, scale*obj.width, scale*obj.height, 3, {collision_class = "Obstacle"})
-    collider:setType('static')
+function loadMap()
+
+    -- destroy objects
+    for i=#objects,1,-1 do
+        objects[i]:destroy()
+        table.remove(objects, i)
+    end
+
+    -- load new map
+    gameMap = sti("/assets/maps/" .. mapNames[math.random(#mapNames)] .. ".lua")
+
+    -- collisions for objects
+    for i, obj in pairs(gameMap.layers["Objects"].objects) do
+        collider = world:newBSGRectangleCollider(scale*obj.x, scale*obj.y, scale*obj.width, scale*obj.height, 3, {collision_class = "Obstacle"})
+        collider:setType('static')
+        table.insert(objects, collider)
+    end
+    
+    -- collisions for interactables
+    for i, obj in pairs(gameMap.layers["Interactables"].objects) do
+        collider = world:newBSGRectangleCollider(scale*obj.x, scale*obj.y, scale*obj.width, scale*obj.height, 3, {collision_class = "Interactables"})
+        collider:setType('static')
+        table.insert(objects, collider)
+    end
 end
 
--- collisions for interactables
-for i, obj in pairs(gameMap.layers["Interactables"].objects) do
-    collider = world:newBSGRectangleCollider(scale*obj.x, scale*obj.y, scale*obj.width, scale*obj.height, 3, {collision_class = "Interactables"})
-    collider:setType('static')
-end
-
-function gameMap:draw()
+function drawMap()
     love.graphics.scale( scale, scale )
     if gameMap.layers["1"] then
         gameMap:drawLayer(gameMap.layers["1"])
@@ -27,7 +41,7 @@ function gameMap:draw()
     love.graphics.scale( 1/scale, 1/scale )
 end
 
-function gameMap:drawForeground()
+function drawMapForeground()
     love.graphics.scale( scale, scale )
     if gameMap.layers["Foreground"] then
         gameMap:drawLayer(gameMap.layers["Foreground"])

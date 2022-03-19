@@ -21,7 +21,7 @@ function state:update()
 
         player.health = 4
 
-        -- gameMap = sti("/assets/maps/" .. mapNames[math.random(#mapNames)] .. ".lua")
+        loadMap()
     end
 end
 
