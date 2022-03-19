@@ -12,6 +12,11 @@ state = {
 
 maxTime = state.level
 timer = maxTime
+maxZombies = state.level * 3
+
+if maxZombies > 15 then
+    maxZombies = 15
+end
 
 function state:update()
     if state.kills >= state.goal then
