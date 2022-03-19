@@ -20,11 +20,15 @@ if maxZombies > 15 then
 end
 
 function state:update()
-    if state.kills >= state.goal then
-        state.kills = 0
-        state.goal = state.goal + state.level * 5
-        state.level = state.level + 1
+    if player.state == 2 then
+        self.gameStatus = 2
+    end
 
+    if self.kills >= self.goal then
+        self.kills = 0
+        self.goal = self.goal + self.level * 5
+        self.level = self.level + 1
+        
         for i=#bulletList,1,-1 do
             bulletList[i]:destroy()
             table.remove(bulletList, i)
@@ -33,9 +37,9 @@ function state:update()
             enemies[i]:destroy()
             table.remove(enemies, i)
         end
-
+        
         player.health = 4
-
+        
         loadMap()
     elseif player.state == 2 then
         state.gameStatus = 2
