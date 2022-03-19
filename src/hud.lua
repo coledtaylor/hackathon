@@ -29,14 +29,14 @@ end
 
 function drawStatsBox()
     love.graphics.setColor(169, 169, 169, 0.4)
-    love.graphics.rectangle("fill", 10, 10, 165, 100, 15, 15)
+    love.graphics.rectangle("fill", 10, 10, 165, 95, 15, 15)
     love.graphics.reset()
 end
 
 function drawStatsText()
     -- Health
-    local person = love.graphics.newImage("icons/man.png")
-    love.graphics.draw(person, boxX + 10, boxY + 10, 0, 0.04, 0.04)
+    local person = love.graphics.newImage("icons/player.png")
+    love.graphics.draw(person, boxX + 20, boxY + 10, 0, 1.2, 1.2)
     love.graphics.setColor(225, 0, 0)
     local heart = love.graphics.newImage("icons/heart.png")
     local xPosition = boxX + 45
@@ -47,15 +47,15 @@ function drawStatsText()
     love.graphics.reset()
 
     -- Zombie
-    local zombie = love.graphics.newImage("icons/zombie.png")
-    love.graphics.draw(zombie, boxX + 10, boxY + 40, 0, 0.04, 0.04)
+    local zombie = love.graphics.newImage("icons/zombie_full.png")
+    love.graphics.draw(zombie, boxX + 22, boxY + 42, 0, 1.2, 1.2)
     love.graphics.setColor(0, 0, 0, 1)
     local zombieText = love.graphics.newText(statsFont, zombies)
-    love.graphics.draw(zombieText, boxX + 45, boxY + 40)
+    love.graphics.draw(zombieText, boxX + 45, boxY + 42)
 
     -- Level
     local levelText = love.graphics.newText(statsFont, "Level: "..level)
-    love.graphics.draw(levelText, boxX + 10, boxY + 70)
+    love.graphics.draw(levelText, boxX + 20, boxY + 70)
     love.graphics.reset()
 end
 

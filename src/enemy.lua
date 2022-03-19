@@ -190,3 +190,8 @@ function getSpawnPositions()
     end
 
 end
+
+function deleteEnemy(enemy)
+    enemy.dead = true
+    enemy:destroy()
+end
