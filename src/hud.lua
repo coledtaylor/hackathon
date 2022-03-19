@@ -77,8 +77,8 @@ function updateHUD(dt)
 end
 
 function showGameOverText()
-    gameOverText = love.graphics.newText(love.graphics.newFont(30), "Oh no! The zombies ate what little brains you had.")
+    gameOverText = love.graphics.newText(love.graphics.newFont(28), "Oh no, the zombies ate what little brains you had!")
     playAgainText = love.graphics.newText(love.graphics.newFont(25), "Press 'Enter' key to play again or 'Esc' to exit")
-    love.graphics.draw(gameOverText, love.graphics.getWidth()/2 - gameOverText:getWidth()/2, love.graphics.getHeight()/2 - 15)
-    love.graphics.draw(playAgainText, love.graphics.getWidth()/2 - playAgainText:getWidth()/2, love.graphics.getHeight()/2 + 15)
+    love.graphics.draw(gameOverText, love.graphics.getWidth()/2 - gameOverText:getWidth()/2, love.graphics.getHeight()/2 - 20)
+    love.graphics.draw(playAgainText, love.graphics.getWidth()/2 - playAgainText:getWidth()/2, love.graphics.getHeight()/2 + 20)
 end

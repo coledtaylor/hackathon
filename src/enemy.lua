@@ -195,4 +195,5 @@ function deleteEnemy(enemy)
     enemy.dead = true
     state.kills = state.kills + 1
     enemy:destroy()
+    enemies = {}
 end
