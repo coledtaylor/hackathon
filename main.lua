@@ -14,16 +14,14 @@ end
 
 function love.draw()
     camera:attach()
-
-    gameMap:draw()
-    player:draw()
-    gameMap:drawForeground()
-    world:draw()
-    
-    drawEnemies()
-    if showWorld then
-        world:draw()
-    end
+        gameMap:draw()
+        player:draw()
+        drawEnemies()
+        gameMap:drawForeground()
+        
+        if showWorld then
+            world:draw()
+        end
     camera:detach()
 end
 
@@ -31,6 +29,7 @@ function love:keypressed(key)
     if key == "escape" then
         love.event.quit()
     end
+
     if key == "q" then
         showWorld = not showWorld
     end
