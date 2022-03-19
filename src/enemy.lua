@@ -44,7 +44,16 @@ function spawnZombie()
     end
     
     function enemy:checkDamage()
-        -- Will check for bullets
+        if enemy:enter('Bullet') and self.health > 0 then
+            local zombie = player:getEnterCollisionData('Zombie')
+            self.health = self.health - 1
+        end
+    
+        if self.health <= 0 then
+            -- self.anim = self.animations.die
+            self.dead = true
+            self:destroy()
+        end
     end
 
     enemy.idle_grid = anim8.newGrid(32, 32, sprites.zombieSheet_idle:getWidth(), sprites.zombieSheet_idle:getHeight())
@@ -74,58 +83,63 @@ function updateEnemy(dt)
 
     for i, zombie in ipairs(enemies) do
 
-        if math.cos(zombiePlayerAngle(zombie)) < 0 then
-            zombie.xVector = -1
-        else
-            zombie.xVector = 1
+        if zombie.body then 
+            if math.cos(zombiePlayerAngle(zombie)) < 0 then
+                zombie.xVector = -1
+            else
+                zombie.xVector = 1
+            end
+
+            if zombie.state == 2 then
+                zombie.animTimer = zombie.animTimer - dt
+            end 
+
+            if zombie.moving then
+                zombie:setX(zombie:getX() + (math.cos( zombiePlayerAngle(zombie) ) * zombie.speed * dt))
+                zombie:setY(zombie:getY() + (math.sin( zombiePlayerAngle(zombie) ) * zombie.speed * dt))
+            end
+
+            if distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) < 50 then
+                zombie.state = 1
+                zombie.anim = zombie.animations.attack
+            elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.state == 1 then
+                zombie.state = 2
+                zombie.anim = zombie.animations.idle
+            elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.animTimer <= 0 and zombie.state == 2 then
+                zombie.state = 0
+                zombie.anim = zombie.animations.run
+                zombie.animTimer = 0.7
+            end
+
+            zombie.anim:update(dt)
+            zombie:checkDamage()
         end
-
-        if zombie.state == 2 then
-            zombie.animTimer = zombie.animTimer - dt
-        end 
-
-        if zombie.moving then
-            zombie:setX(zombie:getX() + (math.cos( zombiePlayerAngle(zombie) ) * zombie.speed * dt))
-            zombie:setY(zombie:getY() + (math.sin( zombiePlayerAngle(zombie) ) * zombie.speed * dt))
-        end
-
-        if distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) < 50 then
-            zombie.state = 1
-            zombie.anim = zombie.animations.attack
-        elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.state == 1 then
-            zombie.state = 2
-            zombie.anim = zombie.animations.idle
-        elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.animTimer <= 0 and zombie.state == 2 then
-            zombie.state = 0
-            zombie.anim = zombie.animations.run
-            zombie.animTimer = 0.7
-        end
-
-        zombie.anim:update(dt)
-        zombie:checkDamage()
     end
 end
 
 function drawEnemies()
     for i,zombie in ipairs(enemies) do
 
-        local px, py = zombie:getPosition()
+        if zombie.body then
+            local px, py = zombie:getPosition()
 
-        if zombie.state == 0 and zombie.damage == 1 then
-            zombie.anim:draw(sprites.zombieSheet_run, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
-        elseif zombie.state == 2 and zombie.damage == 1 then
-            zombie.anim:draw(sprites.zombieSheet_idle, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
-        elseif  zombie.state == 1 and zombie.damage == 1 then
-            zombie.anim:draw(sprites.zombieSheet_attack, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
+            if zombie.state == 0 and zombie.damage == 1 then
+                zombie.anim:draw(sprites.zombieSheet_run, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
+            elseif zombie.state == 2 and zombie.damage == 1 then
+                zombie.anim:draw(sprites.zombieSheet_idle, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
+            elseif  zombie.state == 1 and zombie.damage == 1 then
+                zombie.anim:draw(sprites.zombieSheet_attack, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
+            end
+
+            if zombie.state == 0 and zombie.damage == 2 then
+                zombie.anim:draw(sprites.zombieSheet_run_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
+            elseif zombie.state == 2 and zombie.damage == 2 then
+                zombie.anim:draw(sprites.zombieSheet_idle_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
+            elseif  zombie.state == 1 and zombie.damage == 2 then
+                zombie.anim:draw(sprites.zombieSheet_attack_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
+            end
         end
 
-        if zombie.state == 0 and zombie.damage == 2 then
-            zombie.anim:draw(sprites.zombieSheet_run_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
-        elseif zombie.state == 2 and zombie.damage == 2 then
-            zombie.anim:draw(sprites.zombieSheet_idle_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
-        elseif  zombie.state == 1 and zombie.damage == 2 then
-            zombie.anim:draw(sprites.zombieSheet_attack_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
-        end
     end
 end
 

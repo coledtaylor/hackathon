@@ -24,6 +24,8 @@ function Gun:update()
 end
 
 function Gun:draw()
-    self.anim:draw(sprites.famasSheet_fireing, player:getX() - (65 / 2), player:getY() - (32 / 2), self.rotation, 1, 1, nil, nil)
+    if player.health > 0 then 
+        self.anim:draw(sprites.famasSheet_fireing, player:getX() - (65 / 2), player:getY() - (32 / 2), self.rotation, 1, 1, nil, nil)
+    end
 end
 -- end
