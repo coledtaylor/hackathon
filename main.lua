@@ -21,7 +21,7 @@ function love.draw()
         drawMap()
         player:draw()
         Gun:draw()
-        drawBullet()
+        drawBullet()        
         drawEnemies()
         if showWorld then
             world:draw()

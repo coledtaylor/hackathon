@@ -2,7 +2,6 @@ enemies = {}
 
 function spawnZombie()
     enemy = world:newBSGRectangleCollider(150, 256, 30, 50, 4, {collision_class = "Zombie"})
-    enemy.dead = false
     enemy.animSpeed = 0.12
     enemy.xVector = 1
     enemy.moving = true
@@ -22,6 +21,8 @@ function spawnZombie()
     -- 0 = walking
     -- 1 = attacking
     -- 2 = idle
+    -- 3 = dying
+    -- 4 = dead
     enemy.state = 0
 
     --1 = left
@@ -42,23 +43,11 @@ function spawnZombie()
         enemy:setX(math.random(10, love.graphics.getWidth() - 10))
         enemy:setY(love.graphics.getHeight() + 10)
     end
-    
-    function enemy:checkDamage()
-        if enemy:enter('Bullet') and self.health > 0 then
-            local zombie = player:getEnterCollisionData('Zombie')
-            self.health = self.health - 1
-        end
-    
-        if self.health <= 0 then
-            -- self.anim = self.animations.die
-            self.dead = true
-            self:destroy()
-        end
-    end
 
     enemy.idle_grid = anim8.newGrid(32, 32, sprites.zombieSheet_idle:getWidth(), sprites.zombieSheet_idle:getHeight())
     enemy.run_grid = anim8.newGrid(32, 32, sprites.zombieSheet_run:getWidth(), sprites.zombieSheet_run:getHeight())
     enemy.attack_grid = anim8.newGrid(32, 32, sprites.zombieSheet_attack:getWidth(), sprites.zombieSheet_attack:getHeight())
+    enemy.die_grid = anim8.newGrid(32, 32, sprites.zombieSheet_die:getWidth(), sprites.zombieSheet_die:getHeight())
 
     enemy.idle_grid_chungus = anim8.newGrid(32, 32, sprites.zombieSheet_idle_chungus:getWidth(), sprites.zombieSheet_idle:getHeight())
     enemy.run_grid_chungus = anim8.newGrid(32, 32, sprites.zombieSheet_run_chungus:getWidth(), sprites.zombieSheet_run:getHeight())
@@ -68,6 +57,7 @@ function spawnZombie()
     enemy.animations.idle = anim8.newAnimation(enemy.idle_grid('1-2', 1), enemy.animSpeed)
     enemy.animations.run = anim8.newAnimation(enemy.run_grid('1-4', 1), enemy.animSpeed)
     enemy.animations.attack = anim8.newAnimation(enemy.attack_grid('1-4', 1), enemy.animSpeed)
+    enemy.animations.die = anim8.newAnimation(enemy.die_grid('1-4', 1), enemy.animSpeed)
 
     enemy.animations.idle_chungus = anim8.newAnimation(enemy.idle_grid_chungus('1-2', 1), enemy.animSpeed)
     enemy.animations.run_chungus = anim8.newAnimation(enemy.run_grid_chungus('1-4', 1), enemy.animSpeed)
@@ -83,7 +73,7 @@ function updateEnemy(dt)
 
     for i, zombie in ipairs(enemies) do
 
-        if zombie.body then 
+        if zombie.body and player.body and zombie.state < 3 then 
             if math.cos(zombiePlayerAngle(zombie)) < 0 then
                 zombie.xVector = -1
             else
@@ -102,19 +92,31 @@ function updateEnemy(dt)
             if distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) < 50 then
                 zombie.state = 1
                 zombie.anim = zombie.animations.attack
+                zombie.moving = false
             elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.state == 1 then
                 zombie.state = 2
                 zombie.anim = zombie.animations.idle
+                zombie.moving = false
             elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.animTimer <= 0 and zombie.state == 2 then
                 zombie.state = 0
                 zombie.anim = zombie.animations.run
                 zombie.animTimer = 0.7
+                zombie.moving = true
             end
+        else
+            zombie.state = 4
+            -- zombie.animTimer = zombie.animTimer - dt
+            -- if zombie.animTimer <= 0 then
+            --     zombie:destroy()
+            --     state.kills = state.kills + 1
+            -- end
+        end
 
+        if zombie.state < 4 then
             zombie.anim:update(dt)
-            zombie:checkDamage()
         end
     end
+    checkDamage()
 end
 
 function drawEnemies()
@@ -191,9 +193,28 @@ function getSpawnPositions()
 
 end
 
-function deleteEnemy(enemy)
+function deleteEnemy(enemy) -- This one probably isnt necessary
     enemy.dead = true
     state.kills = state.kills + 1
     enemy:destroy()
     enemies = {}
+end
+
+function checkDamage()
+    for i = #enemies, 1, -1 do
+        if enemies[i].body then
+            if enemies[i]:enter('Bullet') and enemies[i].health > 0 then
+                enemies[i].health = enemies[i].health - 1
+            end
+        
+            if enemies[i].health <= 0 and enemies[i].state < 3 then
+                -- enemies[i].animTimer = 0.5
+                enemies[i] = enemies[i].animations.die
+                enemies[i].state = 3
+                enemies[i]:destroy()
+                table.remove(enemies, i)
+                state.kills = state.kills + 1
+            end
+        end
+    end
 end
