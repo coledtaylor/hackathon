@@ -52,6 +52,12 @@ function love:keypressed(key)
     end 
 
     if key == "return" then
-        state.gameStatus = 1
+        if state.gameStatus == 0 then
+            state.gameStatus = 1
+        end
+        if state.gameStatus == 2 then
+            state:restart()
+            state.gameStatus = 1
+        end
     end
 end

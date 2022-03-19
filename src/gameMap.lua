@@ -10,7 +10,7 @@ function loadMap()
     end
 
     -- load new map
-    gameMap = sti("/assets/maps/" .. mapNames[math.random(#mapNames)] .. ".lua")
+    gameMap = sti("/maps/" .. mapNames[math.random(#mapNames)] .. ".lua")
 
     -- collisions for objects
     for i, obj in pairs(gameMap.layers["Objects"].objects) do

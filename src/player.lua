@@ -83,11 +83,12 @@ function player:update(dt)
 
         self:checkForBorders()
         self:checkDamage(dt)
-    else
+    elseif player.state == 1.5 then 
         player.animTimer = player.animTimer - dt
         if player.animTimer <= 0 and player.body then
             player.state = 2
-            player:destroy()
+            state.gameStatus = 2
+            -- player:destroy()
         end
     end
 
@@ -97,7 +98,7 @@ function player:update(dt)
 end
 
 function player:draw()
-    if player.body then
+    if player.state == 0 then
         local px, py = player:getPosition()
         if self.moving and self.health > 0 then
             self.anim:draw(sprites.playerSheet_run, px, py, nil, 2 * player.xVector, 2, 12, 12)
