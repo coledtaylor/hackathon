@@ -10,6 +10,7 @@ function love.update(dt)
     world:update(dt)
     camera:update(dt)
     updateEnemy(dt)
+    updateHUD(dt)
     updateBullet(dt)
 end
 
