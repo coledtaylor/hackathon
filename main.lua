@@ -18,12 +18,12 @@ function love.draw()
     camera:attach()
         gameMap:draw()
         player:draw()
-        drawBullet()
         drawEnemies()
         if showWorld then
             world:draw()
         end
         gameMap:drawForeground()
+        drawBullet()
     camera:detach()
     drawHUD()
 end

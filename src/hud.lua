@@ -20,7 +20,7 @@ end
 function drawStatsBox()
     love.graphics.print(camera.x)
     love.graphics.setColor(169, 169, 169, 0.4)
-    love.graphics.rectangle("fill", camera.x - 395, camera.y - 295, 165, 100, 15, 15)
+    love.graphics.rectangle("fill", 10, 10, 165, 100, 15, 15)
     love.graphics.reset()
 end
 
