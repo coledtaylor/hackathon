@@ -103,17 +103,7 @@ function updateEnemy(dt)
                 zombie.animTimer = 0.7
                 zombie.moving = true
             end
-<<<<<<< HEAD
-        else
-            zombie.state = 4
-            -- zombie.animTimer = zombie.animTimer - dt
-            -- if zombie.animTimer <= 0 then
-            --     zombie:destroy()
-            --     state.kills = state.kills + 1
-            -- end
-=======
             checkDamage()
->>>>>>> main
         end
 
         if zombie.state <= 3 and zombie.body then
@@ -127,6 +117,7 @@ function updateEnemy(dt)
             if enemies[i].animTimer <= 0 then
                 enemies[i]:destroy()
                 table.remove(enemies, i)
+                state.kills = state.kills + 1
             end
         end
 
