@@ -103,19 +103,24 @@ function updateEnemy(dt)
                 zombie.animTimer = 0.7
                 zombie.moving = true
             end
-        else
-            zombie.state = 4
-            zombie.animTimer = zombie.animTimer - dt
-            if zombie.animTimer <= 0 then
-                zombie:destroy()
-            end
+            checkDamage()
         end
 
-        if zombie.state < 4 then
+        if zombie.state <= 3 and zombie.body then
             zombie.anim:update(dt)
         end
     end
-    checkDamage()
+
+    for i=#enemies, 1, -1 do
+        if enemies[i].state == 3 then
+            enemies[i].animTimer = enemies[i].animTimer - dt
+            if enemies[i].animTimer <= 0 then
+                enemies[i]:destroy()
+                table.remove(enemies, i)
+            end
+        end
+
+    end
 end
 
 function drawEnemies()
@@ -130,6 +135,8 @@ function drawEnemies()
                 zombie.anim:draw(sprites.zombieSheet_idle, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
             elseif  zombie.state == 1 and zombie.damage == 1 then
                 zombie.anim:draw(sprites.zombieSheet_attack, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
+            elseif zombie.state == 3 and zombie.damage == 1 then
+                zombie.anim:draw(sprites.zombieSheet_die, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
             end
 
             if zombie.state == 0 and zombie.damage == 2 then
@@ -192,12 +199,6 @@ function getSpawnPositions()
 
 end
 
-function deleteEnemy(enemy) -- This one probably isnt necessary
-    enemy.dead = true
-    enemy:destroy()
-    enemies = {}
-end
-
 function checkDamage()
     for i = #enemies, 1, -1 do
         if enemies[i].body then
@@ -205,10 +206,11 @@ function checkDamage()
                 enemies[i].health = enemies[i].health - 1
             end
         
-            if enemies[i].health <= 0 and enemies[i].state < 3 then
-                enemies[i].animTimer = 0.5
-                enemies[i] = enemies[i].animations.die
+            if enemies[i].health <= 0 then
+                enemies[i].anim = enemies[i].animations.die
                 enemies[i].state = 3
+                enemies[i].animTimer = 0.4
+                enemies[i].moving = false
             end
         end
     end
