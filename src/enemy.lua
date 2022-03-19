@@ -22,7 +22,6 @@ function spawnZombie()
     -- 1 = attacking
     -- 2 = idle
     -- 3 = dying
-    -- 4 = dead
     enemy.state = 0
 
     --1 = left
@@ -52,6 +51,7 @@ function spawnZombie()
     enemy.idle_grid_chungus = anim8.newGrid(32, 32, sprites.zombieSheet_idle_chungus:getWidth(), sprites.zombieSheet_idle:getHeight())
     enemy.run_grid_chungus = anim8.newGrid(32, 32, sprites.zombieSheet_run_chungus:getWidth(), sprites.zombieSheet_run:getHeight())
     enemy.attack_grid_chungus = anim8.newGrid(32, 32, sprites.zombieSheet_attack_chungus:getWidth(), sprites.zombieSheet_attack:getHeight())
+    enemy.die_grid_chungus = anim8.newGrid(32, 32, sprites.zombieSheet_die_chungus:getWidth(), sprites.zombieSheet_die:getHeight())
 
     enemy.animations = {}
     enemy.animations.idle = anim8.newAnimation(enemy.idle_grid('1-2', 1), enemy.animSpeed)
@@ -62,6 +62,7 @@ function spawnZombie()
     enemy.animations.idle_chungus = anim8.newAnimation(enemy.idle_grid_chungus('1-2', 1), enemy.animSpeed)
     enemy.animations.run_chungus = anim8.newAnimation(enemy.run_grid_chungus('1-4', 1), enemy.animSpeed)
     enemy.animations.attack_chungus = anim8.newAnimation(enemy.attack_grid_chungus('1-4', 1), enemy.animSpeed)
+    enemy.animations.die_chungus = anim8.newAnimation(enemy.die_grid_chungus('1-4', 1), enemy.animSpeed)
 
     enemy.anim = enemy.animations.run
 
@@ -145,6 +146,8 @@ function drawEnemies()
                 zombie.anim:draw(sprites.zombieSheet_idle_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
             elseif  zombie.state == 1 and zombie.damage == 2 then
                 zombie.anim:draw(sprites.zombieSheet_attack_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
+            elseif  zombie.state == 3 and zombie.damage == 2 then
+                zombie.anim:draw(sprites.zombieSheet_die_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
             end
         end
 
