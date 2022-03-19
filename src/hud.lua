@@ -16,6 +16,8 @@ function drawHUD()
     elseif gameState == 2 then
         drawStatsBox()
         drawStatsText()
+    else
+        showGameOverText()
     end
 end
 
@@ -69,13 +71,17 @@ function updateHUD(dt)
             gameState = 3
             showGameOverText()
         end
-    elseif gameState == 3 and love.keyboard.isDown("return") then
-        gameState = 1
-        drawStatsBox()
+    elseif gameState == 3 then
+        if love.keyboard.isDown("return") then
+            gameState = 2
+            drawStatsBox()
+        end
     end
 end
 
 function showGameOverText()
-    gameOverText = love.graphics.newText(love.graphics.newFont(30), "Game Over!\nPress 'Enter' key to play again or 'Esc' to exit")
-    love.graphics.draw(gameOverText, love.graphics.getWidth()/2 - startText:getWidth()/2, love.graphics.getHeight()/2)
+    gameOverText = love.graphics.newText(love.graphics.newFont(30), "Game Over!")
+    playAgainText = love.graphics.newText(love.graphics.newFont(25), "Press 'Enter' key to play again or 'Esc' to exit")
+    love.graphics.draw(gameOverText, love.graphics.getWidth()/2 - gameOverText:getWidth()/2, love.graphics.getHeight()/2 - 15)
+    love.graphics.draw(playAgainText, love.graphics.getWidth()/2 - playAgainText:getWidth()/2, love.graphics.getHeight()/2 + 15)
 end
