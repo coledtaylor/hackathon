@@ -70,11 +70,16 @@ function spawnZombie()
 end
 
 function updateEnemy(dt)
-    local delta = vector(0,0)
+    timer = timer - dt
+    if timer <= 0 and #enemies < maxZombies then
+        spawnZombie()
+        maxTime = 0.9 * maxTime
+        timer = maxTime
+    end
 
     for i, zombie in ipairs(enemies) do
 
-        if zombie.body and player.body and zombie.state < 3 then 
+        if zombie.body and player.body and zombie.state <= 2 then 
             if math.cos(zombiePlayerAngle(zombie)) < 0 then
                 zombie.xVector = -1
             else
@@ -93,11 +98,13 @@ function updateEnemy(dt)
             if distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) < 50 then
                 zombie.state = 1
                 zombie.anim = zombie.animations.attack
+                sounds.attack_zombie:play()
                 zombie.moving = false
             elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.state == 1 then
                 zombie.state = 2
                 zombie.anim = zombie.animations.idle
                 zombie.moving = false
+                sounds.idle_zombie:play()
             elseif distanceBetween(zombie:getX(), zombie:getY(), player:getX(), player:getY()) > 50 and zombie.animTimer <= 0 and zombie.state == 2 then
                 zombie.state = 0
                 zombie.anim = zombie.animations.run
@@ -107,20 +114,19 @@ function updateEnemy(dt)
             checkDamage()
         end
 
-        if zombie.state <= 3 and zombie.body then
-            zombie.anim:update(dt)
-        end
+        zombie.anim:update(dt)
     end
 
     for i=#enemies, 1, -1 do
         if enemies[i].state == 3 then
             enemies[i].animTimer = enemies[i].animTimer - dt
+            sounds.zombie_death:play()
             if enemies[i].animTimer <= 0 then
                 enemies[i]:destroy()
                 table.remove(enemies, i)
+                state.kills = state.kills + 1
             end
         end
-
     end
 end
 
@@ -134,7 +140,7 @@ function drawEnemies()
                 zombie.anim:draw(sprites.zombieSheet_run, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
             elseif zombie.state == 2 and zombie.damage == 1 then
                 zombie.anim:draw(sprites.zombieSheet_idle, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
-            elseif  zombie.state == 1 and zombie.damage == 1 then
+            elseif zombie.state == 1 and zombie.damage == 1 then
                 zombie.anim:draw(sprites.zombieSheet_attack, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
             elseif zombie.state == 3 and zombie.damage == 1 then
                 zombie.anim:draw(sprites.zombieSheet_die, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
@@ -144,9 +150,9 @@ function drawEnemies()
                 zombie.anim:draw(sprites.zombieSheet_run_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
             elseif zombie.state == 2 and zombie.damage == 2 then
                 zombie.anim:draw(sprites.zombieSheet_idle_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
-            elseif  zombie.state == 1 and zombie.damage == 2 then
+            elseif zombie.state == 1 and zombie.damage == 2 then
                 zombie.anim:draw(sprites.zombieSheet_attack_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
-            elseif  zombie.state == 3 and zombie.damage == 2 then
+            elseif zombie.state == 3 and zombie.damage == 2 then
                 zombie.anim:draw(sprites.zombieSheet_die_chungus, px, py, nil, 2 * zombie.xVector, 2, 16, 16)
             end
         end
@@ -209,7 +215,7 @@ function checkDamage()
                 enemies[i].health = enemies[i].health - 1
             end
         
-            if enemies[i].health <= 0 then
+            if enemies[i].health <= 0 and enemies[i].state < 3 then
                 enemies[i].anim = enemies[i].animations.die
                 enemies[i].state = 3
                 enemies[i].animTimer = 0.4

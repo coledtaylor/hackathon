@@ -5,6 +5,25 @@ function loadAll()
     vector = require("libs/hump/vector")
     anim8 = require("libs/anim8/anim8")
     sti = require("libs/sti/sti")
+    require("libs/show")
+
+    sounds = {}
+    sounds.music = love.audio.newSource("audio/background.mp3", "stream")
+    sounds.shoot = love.audio.newSource("audio/gunshot.mp3", "stream")
+    sounds.attack_zombie = love.audio.newSource("audio/attack.mp3", "static")
+    sounds.idle_zombie = love.audio.newSource("audio/idle.mp3", "static")
+    sounds.zombie_death = love.audio.newSource("audio/zombie_death.mp3", "static")
+    sounds.player_death = love.audio.newSource("audio/player_death.wav", "static")
+    sounds.music:setLooping(true)
+    sounds.music:setVolume(0.1)
+    sounds.shoot:setVolume(0.1)
+    sounds.zombie_death:setVolume(0.1)
+    sounds.attack_zombie:setVolume(0.5)
+    sounds.idle_zombie:setVolume(0.5)
+    sounds.music:play()
+
+    -- sounds.jump:play()
+
     Camera = require ("libs/hump/camera")
     scale = 3
     
@@ -33,12 +52,15 @@ function loadAll()
     sprites.famasSheet_fireing = love.graphics.newImage("/assets/gun/famas_fireing.png")
     sprites.famasSheet_bullet = love.graphics.newImage("/assets/gun/bullet.png")
     
+    require("src/gameState")
     require("src/hud")
-    require("src/gameMap")
+    gameMap = require("src/gameMap")
+    loadMap()
     require("src/player")
     require("src/camera")
     require("src/enemy")
-    -- require("enemy")
     require 'src/bullet'
     require("src/famasGun")
+    sprites.famas_idle = love.graphics.newImage("/assets/gun/famas_idle.png")
+    sprites.famas_fireing = love.graphics.newImage("/assets/gun/famas_fireing.png")
 end

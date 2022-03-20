@@ -7,27 +7,29 @@ end
 
 function love.update(dt)
     player:update(dt)
-    world:update(dt)
     camera:update(dt)
-    updateEnemy(dt)
-    updateHUD(dt)
-    updateBullet(dt)
-    Gun:update(dt)
+    world:update(dt)
+    if state.gameStatus >= 1 then
+        updateEnemy(dt)
+        Gun:update(dt)
+        updateBullet(dt)
+        state:update(dt)
+    end
 end
 
 function love.draw()
     camera:attach()
-
-    gameMap:draw()
-    player:draw()
-    drawBullet()
-    Gun:draw()
-    gameMap:drawForeground()
-    
-    drawEnemies()
-    if showWorld then
-        world:draw()
-    end
+        drawMap()
+        player:draw()
+        if state.gameStatus == 1 then 
+            drawBullet()        
+            Gun:draw()
+            drawEnemies()
+        end
+        if showWorld then
+            world:draw()
+        end
+        drawMapForeground()
     camera:detach()
     drawHUD()
 end
@@ -37,18 +39,25 @@ function love:keypressed(key)
         love.event.quit()
     end
 
-    if key == "q" then
-        showWorld = not showWorld
-    end
+    -- if key == "q" then
+    --     showWorld = not showWorld
+    -- end
 
     if key == "e" then
         spawnZombie()
-    end
+    end 
+
+    -- if key == "u" then
+    --     state.kills = 100
+    -- end 
 
     if key == "return" then
-        player.health = 4
-        for i, enemy in pairs(enemies) do
-            deleteEnemy(enemy)
+        if state.gameStatus == 0 then
+            state.gameStatus = 1
+        end
+        if state.gameStatus == 2 then
+            state:restart()
+            state.gameStatus = 1
         end
     end
 end

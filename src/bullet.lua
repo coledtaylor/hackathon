@@ -1,5 +1,5 @@
 bulletList = {}
-
+flip = false
 function spawnBullet()
     Bullet = world:newRectangleCollider(player:getX(), player:getY(), 10, 5, {collision_class = "Bullet"})
     Bullet.speed = 400
@@ -30,17 +30,18 @@ function collisionWithAnything(bullet)
     else
         return false
     end
-
 end
 
 function updateBullet(dt)
-    for i=#bulletList, 1, -1 do
-        bulletList[i]:setX(bulletList[i]:getX() + (math.cos( bulletList[i].angle ) * bulletList[i].speed * dt))
-        bulletList[i]:setY(bulletList[i]:getY() + (math.sin( bulletList[i].angle ) * bulletList[i].speed * dt))
-        bulletList[i].rotation = bulletList[i].angle
-        if bulletList[i]:enter("Zombie") or bulletOutOfBounds(bulletList[i]) or collisionWithAnything(bulletList[i]) then
-            bulletList[i]:destroy()
-            table.remove(bulletList, i)
+    if player.body then
+        for i=#bulletList, 1, -1 do
+            bulletList[i]:setX(bulletList[i]:getX() + (math.cos( bulletList[i].angle ) * bulletList[i].speed * dt))
+            bulletList[i]:setY(bulletList[i]:getY() + (math.sin( bulletList[i].angle ) * bulletList[i].speed * dt))
+            bulletList[i].rotation = bulletList[i].angle
+            if bulletList[i]:enter("Zombie") or bulletOutOfBounds(bulletList[i]) or collisionWithAnything(bulletList[i]) then
+                bulletList[i]:destroy()
+                table.remove(bulletList, i)
+            end
         end
     end
 end
