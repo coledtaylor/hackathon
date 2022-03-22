@@ -72,12 +72,14 @@ function player:update(dt)
             self:setY(py - self.speed*dt)
         end
 
-        if state.gameStatus == 1 and love.keyboard.isDown("space") then
-            if self.fireTimer >= self.fireRate then
-                self.fireTimer = 0
-                spawnBullet()
-                sounds.shoot:stop()
-                sounds.shoot:play()
+        if state.gameStatus == 1 then
+            if love.keyboard.isDown("space") or love.mouse.isDown(1) then
+                if self.fireTimer >= self.fireRate then
+                    self.fireTimer = 0
+                    spawnBullet()
+                    sounds.shoot:stop()
+                    sounds.shoot:play()
+                end
             end
         end
 

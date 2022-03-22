@@ -21,11 +21,9 @@ function love.draw()
     camera:attach()
         drawMap()
         player:draw()
-        if state.gameStatus == 1 then 
-            drawBullet()        
-            Gun:draw()
-            drawEnemies()
-        end
+        drawBullet()        
+        Gun:draw()
+        drawEnemies()
         if showWorld then
             world:draw()
         end
@@ -52,11 +50,11 @@ function love:keypressed(key)
     -- end 
 
     if key == "return" then
-        if state.gameStatus == 0 then
+        if state.gameStatus == 0 then  --before start
             state.gameStatus = 1
         end
-        if state.gameStatus == 2 then
-            state:restart()
+        if state.gameStatus == 2 then  --game over
+            state:startLevel(true)
             state.gameStatus = 1
         end
     end
